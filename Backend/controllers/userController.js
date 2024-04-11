@@ -3,6 +3,26 @@ const User = require('../models/User');
 // @desc        Register user
 // @route       POST /auth/register
 // @access      Public
+/**
+  * @swagger
+  * /auth/register:
+  *  post:
+  *   summary: Register a new user
+  *   tags: [Auth]
+  *   requestBody:
+  *    required: true
+  *    content:
+  *     application/json:
+  *      schema:
+  *       $ref: '#/components/schemas/User'
+  *   responses:
+  *    200:
+  *     description: The user was successfully created
+  *     content:
+  *      application/json:
+  *       schema:
+  *         $ref: '#/components/schemas/User'
+*/
 exports.register = async (req, res, next) => {
   try {
     const { name, tel, email, password, role } = req.body;
