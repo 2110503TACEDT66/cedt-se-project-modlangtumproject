@@ -5,7 +5,10 @@ const {
   getMe,
   logout,
 } = require('../controllers/userController');
-import { forgetPassword, resetPassword } from '../controllers/forgetPasswordController';
+const {
+  forgetPassword,
+  resetPassword,
+} = require('../controllers/forgetPasswordController');
 
 const router = express.Router();
 
@@ -18,6 +21,5 @@ router.get('/me', protect, getMe);
 router.get('/logout', logout);
 router.post('/forget-password', forgetPassword);
 router.post('/reset-password/:resetToken', resetPassword);
-
 
 module.exports = router;
