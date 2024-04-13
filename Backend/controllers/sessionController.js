@@ -96,12 +96,12 @@ exports.addSession = async (req, res, next) => {
   }
 
   const date = new Date(req.body.date);
-  if (!checkDate(date)) {
-    return res.status(400).json({
-      success: false,
-      message: 'Date must be between May 10th - 13th, 2022',
-    });
-  }
+  // if (!checkDate(date)) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     message: 'Date must be between May 10th - 13th, 2022',
+  //   });
+  // }
 
   try {
     // Check for existed session
@@ -115,7 +115,15 @@ exports.addSession = async (req, res, next) => {
       });
     }
 
-    const session = await Session.create(req.body);
+    const { user, company, date } = req.body;
+    const session = await Session.create({
+      user, 
+      company, 
+      date,
+      resume: req.file ? req.file.path : null, 
+    })
+
+    // const session = await Session.create(req.body);
     res.status(201).json({
       success: true,
       data: session,
@@ -151,6 +159,10 @@ exports.updateSession = async (req, res, next) => {
           message: 'Date must be between May 10th - 13th, 2022',
         });
       }
+    }
+
+    if (req.file) {
+      req.body.resume = req.file.path;
     }
 
     //Make sure user is the session owner
