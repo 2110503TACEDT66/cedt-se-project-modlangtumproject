@@ -9,11 +9,11 @@ const SessionSchema = new mongoose.Schema({
   company: {
     type: mongoose.Schema.ObjectId,
     ref: 'Company',
-    // required: true,
+    required: true,
   },
   date: {
     type: Date,
-    // required: true,
+    required: true,
   },
   resume: {
     type: String,

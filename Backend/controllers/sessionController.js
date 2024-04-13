@@ -96,12 +96,12 @@ exports.addSession = async (req, res, next) => {
   }
 
   const date = new Date(req.body.date);
-  // if (!checkDate(date)) {
-  //   return res.status(400).json({
-  //     success: false,
-  //     message: 'Date must be between May 10th - 13th, 2022',
-  //   });
-  // }
+  if (!checkDate(date)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Date must be between May 10th - 13th, 2022',
+    });
+  }
 
   try {
     // Check for existed session
