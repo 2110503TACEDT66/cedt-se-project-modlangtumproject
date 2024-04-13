@@ -13,7 +13,4 @@ const storage = multer.diskStorage({
 
 const uploadResume = multer({ storage });
   
-  module.exports = uploadResume;
-  
-
 module.exports = uploadResume;
