@@ -71,16 +71,16 @@ export default function Booking({ params }: { params: { cid: string } }) {
         token: session.user.token,
       });
       if (!response.success) {
-        throw new Error('Failed to create company');
+        throw new Error('Failed to create booking');
       }
-      alert('Company created');
-      router.push('/company');
+      alert('Booking created');
+      router.push('/session');
     } catch (error) {
       // console.error('An unexpected error happened:', error);
       alert(
         "you can't reserve more than 3 booking, pleases delete one of your booking first"
       );
-      router.push('/session');
+      router.push('/company');
     }
   };
 
