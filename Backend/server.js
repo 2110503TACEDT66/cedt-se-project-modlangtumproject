@@ -44,6 +44,39 @@ const server = app.listen(
   console.log(`Server running in ${process.env.HOST} mode on port ${PORT}`),
 );
 
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Job Fair API',
+      version: '1.0.0',
+      description: 'Job Fair API Information',
+    },
+    components: {
+      schemas: {
+        User: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', required: true },
+            tel: { type: 'string', required: true },
+            email: { type: 'string', required: true },
+            password: { type: 'string', required: true },
+            role: { type: 'string' },
+            profile: { type: 'string' },
+          },
+        },
+      },
+    },
+  },
+  apis: ['./controllers/*.js'],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 // eslint-disable-next-line
 process.on('unhandledRejection', (err, promise) => {
   console.log(`Error: ${err.message}`);
