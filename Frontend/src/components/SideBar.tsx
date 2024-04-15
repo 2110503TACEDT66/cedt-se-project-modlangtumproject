@@ -17,6 +17,7 @@ export default async function SideBar() {
     >
       <div className="absolute top-56">
         <SideBarItem route="Session" path="/session" />
+        <SideBarItem route="Edit User" path="/company/user" />
         {profile.data.role == 'admin' ? (
           <div>
             <SideBarItem route="Company" path="/company/create" />
