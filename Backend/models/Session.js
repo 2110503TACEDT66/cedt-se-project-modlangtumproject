@@ -11,6 +11,11 @@ const SessionSchema = new mongoose.Schema({
     ref: 'Company',
     required: true,
   },
+  job: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Job',
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
