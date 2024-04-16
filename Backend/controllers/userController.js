@@ -1,34 +1,5 @@
 const User = require('../models/User');
 
-// @desc        Update user
-// @route       PUT /auth/update
-// @access      Private
-exports.update = async (req, res, next) => {
-  try {
-    const { name, password } = req.body;
-    //console.log(name, password);
-    // Update user
-    user = await User.findByIdAndUpdate(req.user.id, {
-      name: name,
-      password: password,
-    }, {
-      new: true,
-      runValidators: true,
-    });
-
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
-  } catch (error) {
-    console.log(error.stack);
-    return res.status(500).json({
-      success: false,
-      message: 'Cannot update user',
-    });
-  }
-};
-
 // @desc        Register user
 // @route       POST /auth/register
 // @access      Public
