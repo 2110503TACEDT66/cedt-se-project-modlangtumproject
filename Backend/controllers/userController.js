@@ -1,12 +1,61 @@
 const User = require('../models/User');
 
+// @desc        Update user
+// @route       PUT /auth/update
+// @access      Private
+exports.update = async (req, res, next) => {
+  try {
+    const { name, password } = req.body;
+    //console.log(name, password);
+    // Update user
+    user = await User.findByIdAndUpdate(req.user.id, {
+      name: name,
+      password: password,
+    }, {
+      new: true,
+      runValidators: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({
+      success: false,
+      message: 'Cannot update user',
+    });
+  }
+};
+
 // @desc        Register user
 // @route       POST /auth/register
 // @access      Public
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: The user was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
 exports.register = async (req, res, next) => {
   try {
     const { name, tel, email, password, role } = req.body;
-
+    console.log(name, tel, email, password, role);
     // Create user
     const user = await User.create({
       name,
@@ -27,6 +76,36 @@ exports.register = async (req, res, next) => {
 // @desc        Login user
 // @route       POST /auth/login
 // @access      Public
+/**
+ * @swagger
+ * /auth/login:
+ *  post:
+ *   summary: Login user
+ *   tags: [Auth]
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       type: object
+ *       properties:
+ *        email:
+ *         type: string
+ *        password:
+ *         type: string
+ *   responses:
+ *    200:
+ *     description: User logged in
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *         success:
+ *          type: boolean
+ *         token:
+ *          type: string
+*/
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
