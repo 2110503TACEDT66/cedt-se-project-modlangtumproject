@@ -27,6 +27,7 @@ export default function CreateSessionPanel() {
                   displayEmpty
                   inputProps={{ 'aria-label': 'Without label' }}
                 >
+                  {/* ต้องไปเพิ่มให้มัน fetch company ได้ แต่จริงๆ หน้านี้ปล่อยจอยก็น่าจะได้ */}
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>

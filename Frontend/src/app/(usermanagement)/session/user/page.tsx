@@ -13,8 +13,7 @@ export default async function Session({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      <SideBar />
-      <SessionEdit token={session.user.token} session_id={params.id} />
+      <h1>Test</h1>
     </main>
   );
 }
