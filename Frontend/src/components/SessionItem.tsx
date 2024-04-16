@@ -50,7 +50,7 @@ export default function SessionItem({
   return (
     <div className="flex h-[150px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
       <div className="space-y-1">
-        <div className="text-2xl font-bold">{company && company.name}</div>
+        <div className="text-2xl font-bold">{company.name}</div>
         {admin && (
           <div className="flex flex-row font-semibold ">
             UserId :<p className="px-1 font-normal">{user}</p>
