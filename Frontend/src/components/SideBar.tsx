@@ -20,7 +20,7 @@ export default async function SideBar() {
         <SideBarItem route="Edit User" path="/session/user" />
         {profile.data.role == 'admin' ? (
           <div>
-            <SideBarItem route="Create Session" path="/session/create" />
+            <SideBarItem route="Create Company" path="/company/create" />
           </div>
         ) : null}
       </div>
