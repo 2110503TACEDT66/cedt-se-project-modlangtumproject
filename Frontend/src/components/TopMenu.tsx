@@ -1,18 +1,34 @@
-'use client';
+'use client'
 import TopMenuItem from './TopMenuItem';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import getUserProfile from '@/libs/getUserProfile';
+import { useState, useEffect } from 'react';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 
 const TopMenu = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (status === 'authenticated') {
+        const profile = await getUserProfile(session.user.token);
+        setProfile(profile);
+      }
+    };
+
+    fetchProfile();
+  }, [status, session]);
 
   return (
     <div className="flex w-full flex-row flex-wrap">
       <div className="fixed left-0 top-0 z-20 mx-[5%] flex h-[100px] w-[90%] flex-row justify-between rounded-md border-b-[1px] border-black bg-white pl-5 pr-5 shadow-xl">
         <div className="mb-auto mt-auto flex flex-row items-center justify-center">
           <Image src="/img/logo.png" width={50} height={50} alt={'LOGO'} />
-          <span className="ml-1 font-bold">Mu Hung</span>
+          <span className="ml-1 font-bold">ModlangTumProject</span>
         </div>
         <div className="jusitfy-center flex">
           <TopMenuItem title="Home" pageRef="/" />
@@ -21,12 +37,20 @@ const TopMenu = () => {
         </div>
         <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-white">
           {session ? 
-            <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
+            <div className="text-bold m-auto flex flex-row text-center text-black ">
             <Link
-                href="/api/auth/signout"
-                className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4"
+                href="/user"
+                className="min-w-[120px] h-[60px] flex flex-row px-2 items-center justify-center border m-auto rounded-3xl bg-grey-100 py-4 "
               >
-                Logout
+                <Image
+                  src={profile && profile.data && profile.data.profile ? profile.data.profile : '/img/user.png'}
+                  alt="logo"
+                  width={20}
+                  height={20}
+                  sizes="20vh"
+                  className="mr-2"
+                />
+                {profile && profile.data ? profile.data.name : 'Loading...'}
               </Link>
               </div> : (
             <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
