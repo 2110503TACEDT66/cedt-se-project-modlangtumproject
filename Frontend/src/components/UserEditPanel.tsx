@@ -25,7 +25,6 @@ export default function UserEditPanel(){
         
     try {
       const token = session.user.token;
-      // alert(token)
       await updateUserProfile(username , password , token);
       console.log("Edit Profile success");
       alert('Edit UserProflie Successfully')
