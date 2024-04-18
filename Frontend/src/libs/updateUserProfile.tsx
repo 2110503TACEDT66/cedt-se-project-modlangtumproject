@@ -1,16 +1,12 @@
 
-export default async function updateUserProfile({
-    name,
-    password,
-    token,
-  }: {
-    name : string;
-    password : string;
-    token : string;
-
-  }) {
+export default async function updateUserProfile(
+    name : string ,
+    password : string ,
+    token : string ,
+) {
     const response = await fetch(
-      `https://job-fair-frontend-but-backend.vercel.app/auth/update`,
+      //`https://job-fair-frontend-but-backend.vercel.app/auth/update`,
+      "http://localhost:5000/auth/update",
       {
         method: 'PUT',
         headers: {
