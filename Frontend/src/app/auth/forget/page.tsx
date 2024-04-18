@@ -3,15 +3,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import React from 'react';
 import { FormEvent } from 'react';
-import userLogIn from '@/libs/userLogIn';
-import { signIn } from 'next-auth/react';
-import router from 'next/router';
 
 type FormDataState = {
   email: string;
 };
 
-const ResetPage = () => {
+const ForgetPage = () => {
   const [formData, setFormData] = useState<FormDataState>({
     email: '',
   });
@@ -93,4 +90,4 @@ const ResetPage = () => {
   );
 };
 
-export default ResetPage;
+export default ForgetPage;
