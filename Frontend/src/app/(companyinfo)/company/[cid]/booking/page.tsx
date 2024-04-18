@@ -59,14 +59,14 @@ export default function Booking({ params }: { params: { cid: string } }) {
   const { data: companyDetail, error: companyError } = useSWR(
     session?.user.token
       ? [
-          `https://job-fair-frontend-but-backend.vercel.app/company/${params.cid}`,
+          `https://modlangtum-api.vercel.app/company/${params.cid}`,
           session.user.token,
         ]
       : null,
     fetcher
   );
   // const { data: userProfile, error: profileError } = useSWR(
-  //   session?.user.token ? ['https://job-fair-frontend-but-backend.vercel.app/auth/me', session.user.token] : null, fetcher
+  //   session?.user.token ? ['https://modlangtum-api.vercel.app/auth/me', session.user.token] : null, fetcher
   // );
 
   if (companyError) return <div>Failed to load data</div>;
