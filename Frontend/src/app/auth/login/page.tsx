@@ -48,24 +48,24 @@ const LoginPage = () => {
   return (
     <main className="flex flex-col items-center bg-white px-5">
       <div className="mt-16 flex flex-col items-center">
-        <h2 className="text-3xl font-semibold text-gray-900">
+        <h2 className="text-3xl font-bold text-gray-800">
           Login
         </h2>
       </div>
       
         <form
-          className="mt-10 flex w-[50vh] flex-col space-y-4"
+          className="mt-10 flex w-[50vh] flex-col"
           onSubmit={handleSubmit}
         >
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+            <label className="mb-2 block text-m font-medium text-gray-800">
               Email
               <input
                 type="email"
                 id="email"
                 name="email"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                                  text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+                                  text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
                                   dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="Enter your email address"
                 onChange={handleInputChange}
@@ -74,14 +74,14 @@ const LoginPage = () => {
             </label>
           </div>
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+            <label className="block text-m font-medium text-gray-800 mt-2">
               Password
               <input
                 type="password"
                 id="password"
                 name="password"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                              text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+                              text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
                               dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 placeholder="Enter your password"
                 onChange={handleInputChange}
@@ -90,7 +90,7 @@ const LoginPage = () => {
             </label>
           </div>
           <div className="flex flex-row-reverse">
-            <Link href="/auth/reset" className="underline">
+            <Link href="/auth/reset" className="underline font-light text-blue-400 mt-2">
               Forgot Password?
             </Link>
           </div>
