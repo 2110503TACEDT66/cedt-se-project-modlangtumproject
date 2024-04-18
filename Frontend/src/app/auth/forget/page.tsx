@@ -3,12 +3,22 @@ import { useState } from 'react';
 import Link from 'next/link';
 import React from 'react';
 import { FormEvent } from 'react';
+// import { getServerSession } from 'next-auth';
+// import getUserProfile from '@/libs/getUserProfile';
+// import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+// import { redirect } from 'next/navigation';
+import forgetPassword from '@/libs/forgetPassword';
 
 type FormDataState = {
   email: string;
 };
 
 const ForgetPage = () => {
+  // const session = async () => { await getServerSession(authOptions); }
+  // if (!session || !session.user.token) redirect('/auth/login');
+
+  // const profile = async () => { await getUserProfile(session.user.token); }
+  
   const [formData, setFormData] = useState<FormDataState>({
     email: '',
   });
@@ -23,16 +33,20 @@ const ForgetPage = () => {
     const { email } = formData;
 
     try {
-      //const response = await userReset(email);
-
-    //   if (!response?.ok) {
-    //     throw new Error('Network response was not ok');
-    //   }
-    //   alert('Reset password successful');
+      const response = await forgetPassword(email);
+      
+      //let jsonRes = await response.json();
+      //console.log(jsonRes);
+      if (!response?.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
+      alert('A reset link has been sent to your email');
       window.location.href = '/';
     } catch (error) {
-    //   console.error('An unexpected error happened:', error);
-    //   alert('Reset password failed');
+      // console.log(error);
+      console.error('An unexpected error happened:', error);
+      alert('Failed to send a reset link');
     }
   };
 
