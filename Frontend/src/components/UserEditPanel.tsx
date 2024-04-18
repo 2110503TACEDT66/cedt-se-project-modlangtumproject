@@ -2,12 +2,21 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
+import getUserProfile from '@/libs/getUserProfile';
+import SessionItem from './SessionItem';
+import Link from 'next/link';
+import Image from 'next/image';
+import updateUser
+import updateUserProfile from '@/libs/updateUserProfile';
 
 const UserEditPanel: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
+  
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
@@ -18,6 +27,29 @@ const UserEditPanel: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    try {
+      const session = await getServerSession(authOptions);
+      if (!session || !session.user.token) return null;
+      const profile = await getUserProfile(session.user.token);
+      const token = session.user.token ; 
+      const response = await updateUserProfile({
+        name : session.user.name ,
+        password : , 
+        token: session.user.token,
+
+      });
+      if (!response.success) {
+        throw new Error('Failed to update session');
+      }
+      alert('Session updated successfully');
+      window.location.href = '/session';
+    } catch (error) {
+      console.error('Failed to update session:', error);
+      alert('you need to reserve between 2022-05-10 and 2022-05-13');
+    }
+  };
+
+  
     // TODO: Implement the logic to update the user's username and password
     console.log('Username:', username);
     console.log('Password:', password);
@@ -27,6 +59,7 @@ const UserEditPanel: React.FC = () => {
     // Navigate to the /user route
     router.push('/user');
   };
+
 
   return (
     <div className="flex items-center justify-center py-6">
@@ -66,6 +99,7 @@ const UserEditPanel: React.FC = () => {
             <button
               type="submit"
               className="bg-gray-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-gray-600 hover:text-white"
+            
             >
               Save
             </button>
