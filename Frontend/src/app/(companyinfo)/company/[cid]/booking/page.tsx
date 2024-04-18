@@ -33,6 +33,21 @@ export default function Booking({ params }: { params: { cid: string } }) {
     company: '',
     date: '',
   });
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileUpload = (files) => {
+    if (files.length > 0) {
+      setSelectedFileName(files[0].name);
+      setSelectedFile(files[0])
+    }
+  };
+
+  const handleFileDelete = () => {
+    setSelectedFileName(null);
+    setSelectedFile(null)
+  };
+
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -56,6 +71,7 @@ export default function Booking({ params }: { params: { cid: string } }) {
 
   if (companyError) return <div>Failed to load data</div>;
   if (!companyDetail) return <div>Loading...</div>;
+
 
   // console.log(dateTime.toJSON());
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -115,6 +131,22 @@ export default function Booking({ params }: { params: { cid: string } }) {
               </LocalizationProvider>
             </div>
           </div>
+          <div className='text-center flex w-screen space-x-5 px-10-py-10 mb-3'>
+            <p className='text-md w-fit text-left text-black mt-2'>Upload Resume</p>
+            <div className="relative">
+              <input
+                type="file"
+                id="fileInput"
+                className="hidden"
+                onChange={(e) => handleFileUpload(e.target.files)}
+              />
+              <label htmlFor="fileInput" className='bg-gray-200 px-10 py-2 rounded-2xl cursor-pointer'>
+                  {selectedFileName ? selectedFileName : 'Upload File'}
+                </label>
+                <label className='bg-white text-red-500 text-center justify-center text-3xl ml-4' onClick={handleFileDelete}>{selectedFileName ? '-' : ''}</label>
+            </div>
+          </div>
+
 
           <button
             className="mt-2 inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"

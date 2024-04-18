@@ -118,8 +118,8 @@ function SessionEdit({
               </LocalizationProvider>
             </div>
           </div>
-          <div className='text-center flex w-full space-x-5 px-10-py-10 mb-3'>
-            <p className='text-md w-fit text-left text-black'>Upload Resume</p>
+          <div className='text-center flex w-screen space-x-5 px-10-py-10 mb-3'>
+            <p className='text-md w-fit text-left text-black mt-2'>Upload Resume</p>
             <div className="relative">
               <input
                 type="file"
@@ -130,7 +130,7 @@ function SessionEdit({
               <label htmlFor="fileInput" className='bg-gray-200 px-10 py-2 rounded-2xl cursor-pointer'>
                   {selectedFileName ? selectedFileName : 'Upload File'}
                 </label>
-                <label className='bg-white text-red-500 stroke-2 stroke-red-500 text-md ml-5 rounded-full px-3' onClick={handleFileDelete}>{selectedFileName ? '-' : ''}</label>
+                <label className='bg-white text-red-500 text-center justify-center text-3xl ml-4' onClick={handleFileDelete}>{selectedFileName ? '-' : ''}</label>
             </div>
           </div>
 
