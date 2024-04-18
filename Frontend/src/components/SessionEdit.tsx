@@ -28,18 +28,19 @@ function SessionEdit({
   session_id: string;
 }) {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleFileUpload = (files) => {
-    if (files.length > 0) {
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
       setSelectedFileName(files[0].name);
-      setSelectedFile(files[0])
+      setSelectedFile(files[0]);
     }
   };
 
   const handleFileDelete = () => {
     setSelectedFileName(null);
-    setSelectedFile(null)
+    setSelectedFile(null);
   };
   const [dateTime, setDateTime] = useState(dayjs());
   const {
@@ -100,48 +101,57 @@ function SessionEdit({
             <p>Old Date: {new Date(session.date).toLocaleString()}</p>
           </div>
           <form onSubmit={handleSubmit}>
-          <div className="text-md mt-[15px] w-fit space-y-2 text-left text-black">
-            Available Date
-            <div className="flex w-full flex-row justify-center space-x-5 space-y-2 rounded-lg px-10 py-5">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                  label="Date Time picker"
-                  name="date"
-                  defaultValue={sessionDate}
-                  value={sessionDate}
-                  onChange={(newValue) => {
-                    newValue ? setDateTime(newValue) : null;
-                  }}
-                  minDate={dayjs('2022-05-10T')}
-                  maxDate={dayjs('2022-05-13T23:59')}
-                />
-              </LocalizationProvider>
+            <div className="text-md mt-[15px] w-fit space-y-2 text-left text-black">
+              Available Date
+              <div className="flex w-full flex-row justify-center space-x-5 space-y-2 rounded-lg px-10 py-5">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateTimePicker
+                    label="Date Time picker"
+                    name="date"
+                    defaultValue={sessionDate}
+                    value={sessionDate}
+                    onChange={(newValue) => {
+                      newValue ? setDateTime(newValue) : null;
+                    }}
+                    minDate={dayjs('2022-05-10T')}
+                    maxDate={dayjs('2022-05-13T23:59')}
+                  />
+                </LocalizationProvider>
+              </div>
             </div>
-          </div>
-          <div className='text-center flex w-screen space-x-5 px-10-py-10 mb-3'>
-            <p className='text-md w-fit text-left text-black mt-2'>Upload Resume</p>
-            <div className="relative">
-              <input
-                type="file"
-                id="fileInput"
-                className="hidden"
-                onChange={(e) => handleFileUpload(e.target.files)}
-              />
-              <label htmlFor="fileInput" className='bg-gray-200 px-10 py-2 rounded-2xl cursor-pointer'>
+            <div className="px-10-py-10 mb-3 flex w-screen space-x-5 text-center">
+              <p className="text-md mt-2 w-fit text-left text-black">
+                Upload Resume
+              </p>
+              <div className="relative">
+                <input
+                  type="file"
+                  id="fileInput"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+                <label
+                  htmlFor="fileInput"
+                  className="cursor-pointer rounded-2xl bg-gray-200 px-10 py-2"
+                >
                   {selectedFileName ? selectedFileName : 'Upload File'}
                 </label>
-                <label className='bg-white text-red-500 text-center justify-center text-3xl ml-4' onClick={handleFileDelete}>{selectedFileName ? '-' : ''}</label>
+                <label
+                  className="ml-4 justify-center bg-white text-center text-3xl text-red-500"
+                  onClick={handleFileDelete}
+                >
+                  {selectedFileName ? '-' : ''}
+                </label>
+              </div>
             </div>
-          </div>
 
-          <button
-            className="mt-2 inline h-[3em] w-[30vw] min-w-[10vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
-            type="submit"
-          >
-            Confirm
-          </button>
-        </form>
-
+            <button
+              className="mt-2 inline h-[3em] w-[30vw] min-w-[10vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
+              type="submit"
+            >
+              Confirm
+            </button>
+          </form>
         </div>
       </div>
     </div>

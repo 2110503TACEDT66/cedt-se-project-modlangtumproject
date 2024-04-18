@@ -8,7 +8,7 @@ export default async function updateSessionById({
   date: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/sessions/${session_id}`,
+    `https://modlangtum-api.vercel.app/sessions/${session_id}`,
     {
       method: 'PUT',
       headers: {

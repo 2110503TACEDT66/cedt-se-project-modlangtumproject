@@ -14,7 +14,7 @@ export default async function userRegister({
   profile?: string | null;
 }) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/auth/register',
+    'https://modlangtum-api.vercel.app/auth/register',
     {
       method: 'POST',
       headers: {

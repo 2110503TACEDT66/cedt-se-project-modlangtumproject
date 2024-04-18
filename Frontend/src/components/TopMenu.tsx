@@ -56,7 +56,7 @@ const TopMenu = () => {
           ) : (
             <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
               <Link
-                href="/api/auth/signin"
+                href="/auth/login"
                 className="h-[60px] w-[120px] items-center justify-center rounded-3xl bg-blue1 py-4"
               >
                 Login
