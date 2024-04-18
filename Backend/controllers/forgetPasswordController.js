@@ -51,7 +51,7 @@ exports.forgetPassword = async (req, res) => {
       html: `
         <h1>Reset your password</h1>
         <h2>Please click on following link for reset your password</h2>
-        <a href="${process.env.URL}/reset-password/${token}">Reset Password</a>
+        <a href="${process.env.URL}/auth/reset-password/${token}">Reset Password</a>
       `,
     };
 
