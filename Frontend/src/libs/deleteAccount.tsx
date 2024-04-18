@@ -6,7 +6,7 @@ export default async function deleteAccount({
     token: string;
   }) {
     const response = await fetch(
-      `https://job-fair-frontend-but-backend.vercel.app/auth/delete`,
+      `https://modlangtum-api.vercel.app/auth/delete/${id}`,
       {
         method: 'DELETE',
         headers: {
