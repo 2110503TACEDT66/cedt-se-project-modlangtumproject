@@ -8,7 +8,7 @@ export default async function createBooking({
   token: string;
 }) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/sessions',
+    'https://modlangtum-api.vercel.app/sessions',
     {
       method: 'POST',
       headers: {

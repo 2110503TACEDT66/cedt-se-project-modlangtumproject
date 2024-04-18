@@ -1,7 +1,7 @@
 export default async function getAllCompany(token: string) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/company/',
+    'https://modlangtum-api.vercel.app/company',
     {
       method: 'GET',
       headers: {

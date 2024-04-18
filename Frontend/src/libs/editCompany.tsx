@@ -19,7 +19,7 @@ export default async function editCompany({
   token: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/company/${id}`,
+    `https://modlangtum-api.vercel.app/company/${id}`,
     {
       method: 'PUT',
       headers: {

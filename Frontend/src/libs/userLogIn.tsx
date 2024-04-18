@@ -1,6 +1,6 @@
 async function userLogIn(userEmail: string, userPassword: string) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/auth/login',
+    'https://modlangtum-api.vercel.app/auth/login',
     {
       method: 'POST',
       headers: {

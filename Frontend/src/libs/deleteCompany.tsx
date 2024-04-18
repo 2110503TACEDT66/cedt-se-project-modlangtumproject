@@ -7,7 +7,7 @@ export default async function deleteCompany({
   token: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/company/${id}`,
+    `https://modlangtum-api.vercel.app/company/${id}`,
     {
       method: 'DELETE',
       headers: {

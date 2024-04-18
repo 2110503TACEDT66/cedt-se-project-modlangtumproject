@@ -1,6 +1,6 @@
 async function resetPassword(newPassword: string, resetToken: string) {
     const response = await fetch(
-        `https://job-fair-frontend-but-backend.vercel.app/auth/reset-password/${resetToken}`,
+        `https://modlangtum-api.vercel.app/auth/reset-password/${resetToken}`,
       {
         method: 'POST',
         headers: {

@@ -1,6 +1,6 @@
 async function forgetPassword(userEmail: string) {
     const response = await fetch(
-      'https://job-fair-frontend-but-backend.vercel.app/auth/forget-password',
+      'https://modlangtum-api.vercel.app/auth/forget-password',
       {
         method: 'POST',
         headers: {

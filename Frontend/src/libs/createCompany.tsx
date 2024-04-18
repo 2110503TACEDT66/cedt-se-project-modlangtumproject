@@ -18,7 +18,7 @@ export default async function createCompany({
   token: string;
 }) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/company',
+    'https://modlangtum-api.vercel.app/company',
     {
       method: 'POST',
       headers: {
