@@ -36,9 +36,6 @@ const ResetPage = ({ params }: { params: { resetToken: string } }) => {
     try {
       const response = await resetPassword(password, params.resetToken);
 
-      if (!response?.ok) {
-        throw new Error('Network response was not ok');
-      }
       alert('Reset password successful');
       window.location.href = '/';
     } catch (error) {
