@@ -25,10 +25,10 @@ export default function UserEditPanel(){
         
     try {
       const token = session.user.token;
-
+      // alert(token)
       await updateUserProfile(username , password , token);
       console.log("Edit Profile success");
-      alert('Edit UserProflie')
+      alert('Edit UserProflie Successfully')
   } catch (error) {
       console.error("Error Edit Profile:", error);
       // Handle error
@@ -47,23 +47,25 @@ export default function UserEditPanel(){
         </div>
         <form onSubmit={editUser}>
           <div className="flex flex-col items-center">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">New Username:</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(event) => {setUsername(event.target.value)}}
               className="border border-gray-300 rounded-md p-2"
+              required
             />
           </div>
           <div className="flex flex-col items-center">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">New Password:</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(event) => {setPassword(event.target.value)}}
               className="border border-gray-300 rounded-md p-2"
+              required
             />
           </div>
           <div className="flex justify-between">
