@@ -36,13 +36,12 @@ export default function Booking({ params }: { params: { cid: string } }) {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleFileUpload = (files: File[]) => {
-    if (files.length > 0) {
-      setSelectedFileName(files[0].name);
-      setSelectedFile(files[0]);
-    }
-  };
-
+const handleFileUpload = (files: FileList | null) => {
+  if (files && files.length > 0) {
+    setSelectedFileName(files[0].name);
+    setSelectedFile(files[0]);
+  }
+};
   const handleFileDelete = () => {
     setSelectedFileName(null);
     setSelectedFile(null);

@@ -1,39 +1,29 @@
 'use client';
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
-import getUserProfile from '@/libs/getUserProfile';
-import SessionItem from './SessionItem';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import updateUserProfile from '@/libs/updateUserProfile';
 
 export default function UserEditPanel() {
   const { data: session } = useSession();
-  //const session = await getServerSession(authOptions);
-  if (!session || !session.user.token) return null;
-  const token = session.user.token;
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
 
+  if (!session || !session.user.token) return null;
+
   const editUser = async () => {
     try {
       const token = session.user.token;
-      // alert(token)
       await updateUserProfile(username, password, token);
       console.log('Edit Profile success');
       alert('Edit UserProflie Successfully');
     } catch (error) {
       console.error('Error Edit Profile:', error);
-      // Handle error
     }
   };
+
   const handleCancel = () => {
-    // Navigate to the /user route
     router.push('/user');
   };
 

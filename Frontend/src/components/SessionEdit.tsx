@@ -28,10 +28,11 @@ function SessionEdit({
   session_id: string;
 }) {
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleFileUpload = (files) => {
-    if (files.length > 0) {
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
       setSelectedFileName(files[0].name);
       setSelectedFile(files[0]);
     }
@@ -127,7 +128,7 @@ function SessionEdit({
                   type="file"
                   id="fileInput"
                   className="hidden"
-                  onChange={(e) => handleFileUpload(e.target.files)}
+                  onChange={handleFileUpload}
                 />
                 <label
                   htmlFor="fileInput"
