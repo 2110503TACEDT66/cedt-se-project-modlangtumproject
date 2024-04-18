@@ -7,14 +7,16 @@ exports.update = async (req, res, next) => {
   try {
     const { name, password } = req.body;
     //console.log(name, password);
-    // Update user
-    user = await User.findByIdAndUpdate(req.user.id, {
-      name: name,
-      password: password,
-    }, {
-      new: true,
-      runValidators: true,
-    });
+
+    let user = await User.findById(req.user.id);
+    if (name) {
+      user.name = name;
+    }
+    if (password) {
+      user.password = password
+    }
+
+    user = await user.save();
 
     res.status(200).json({
       success: true,
