@@ -1,0 +1,4 @@
+[submodule "migrate"]
+  path = migration
+  url = https://github.com/MoosaTae/modlangtum
+  branch = main

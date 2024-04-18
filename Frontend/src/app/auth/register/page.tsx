@@ -66,8 +66,8 @@ const RegisterPage = () => {
           Create an account
         </h2>
         <div className="flex items-center space-x-1">
-          <span className="text-sm text-gray-500">Already have an ccount?</span>
-          <Link href="/auth/login" className="underline">
+          <span className="text-m font-light text-gray-500">Already have an ccount?</span>
+          <Link href="/auth/login" className="underline font-light text-blue-400">
             Log in
           </Link>
         </div>

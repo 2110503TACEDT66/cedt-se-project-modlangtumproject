@@ -1,6 +1,6 @@
 export default async function getSession(token: string) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/sessions',
+    'https://modlangtum-api.vercel.app/sessions',
     {
       method: 'GET',
       headers: {
