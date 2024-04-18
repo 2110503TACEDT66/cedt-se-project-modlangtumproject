@@ -51,7 +51,7 @@ exports.forgetPassword = async (req, res) => {
       html: `
         <h1>Reset your password</h1>
         <h2>Please click on following link for reset your password</h2>
-        <a href="${process.env.URL}/auth/reset-password/${token}">Reset Password</a>
+        <a href="${process.env.URL}/auth/reset/${token}">Reset Password</a>
       `,
     };
 
@@ -150,10 +150,7 @@ exports.resetPassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-
-    const salt = await bcrypt.genSalt(10);
-    req.body.password = await bcrypt.hash(req.body.password, salt);
-
+    
     user.password = req.body.password;
     await user.save();
 

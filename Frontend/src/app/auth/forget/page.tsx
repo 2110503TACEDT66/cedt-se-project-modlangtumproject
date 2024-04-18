@@ -37,9 +37,6 @@ const ForgetPage = () => {
       
       //let jsonRes = await response.json();
       //console.log(jsonRes);
-      if (!response?.ok) {
-        throw new Error('Network response was not ok');
-      }
       
       alert('A reset link has been sent to your email');
       window.location.href = '/';
