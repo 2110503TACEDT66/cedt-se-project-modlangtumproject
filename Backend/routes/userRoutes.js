@@ -4,7 +4,8 @@ const {
   login,
   getMe,
   logout,
-  update
+  update,
+  deleteUser
 } = require('../controllers/userController');
 const {
   forgetPassword,
@@ -23,5 +24,5 @@ router.get('/logout', logout);
 router.post('/forget-password', forgetPassword);
 router.post('/reset-password/:resetToken', resetPassword);
 router.put('/update', protect, authorize('admin', 'user'), update);
-
+router.delete('/delete/:id', deleteUser)
 module.exports = router;

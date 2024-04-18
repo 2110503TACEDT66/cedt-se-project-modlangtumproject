@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import TopMenuItem from './TopMenuItem';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { getServerSession } from 'next-auth';
 
 const TopMenu = () => {
   const { data: session, status } = useSession();
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -36,14 +36,14 @@ const TopMenu = () => {
           <TopMenuItem title="Session" pageRef="/session" />
         </div>
         <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-white">
-          {session ? 
+          {session ? (
             <div className="text-bold m-auto flex flex-row text-center text-black ">
-            <Link
+              <Link
                 href="/user"
-                className="min-w-[120px] h-[60px] flex flex-row px-2 items-center justify-center border m-auto rounded-3xl bg-grey-100 py-4 "
+                className="bg-grey-100 m-auto flex h-[60px] min-w-[120px] flex-row items-center justify-center rounded-3xl border px-2 py-4 "
               >
                 <Image
-                  src={profile && profile.data && profile.data.profile ? profile.data.profile : '/img/user.png'}
+                  src={profile?.data?.profile ?? '/img/user.png'}
                   alt="logo"
                   width={20}
                   height={20}
@@ -52,7 +52,8 @@ const TopMenu = () => {
                 />
                 {profile && profile.data ? profile.data.name : 'Loading...'}
               </Link>
-              </div> : (
+            </div>
+          ) : (
             <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-center text-white">
               <Link
                 href="/api/auth/signin"
