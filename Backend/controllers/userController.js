@@ -31,6 +31,43 @@ exports.update = async (req, res, next) => {
   }
 };
 
+// @desc        Delete user
+// @route       DELETE /auth/delete/:id
+// @access      Private
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpsOnly: true,
+    });
+
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "No user",
+      });
+    }
+
+    await user.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({
+      success: false,
+      message: 'Cannot delete user',
+    });
+  }
+};
+
+
+
 // @desc        Register user
 // @route       POST /auth/register
 // @access      Public
