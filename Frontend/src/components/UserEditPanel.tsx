@@ -2,27 +2,38 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
+import getUserProfile from '@/libs/getUserProfile';
+import SessionItem from './SessionItem';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import updateUserProfile from '@/libs/updateUserProfile';
 
-const UserEditPanel: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+
+export default function UserEditPanel(){ 
+  const { data: session } = useSession();
+  //const session = await getServerSession(authOptions);
+  if (!session || !session.user.token) return null;
+  const token = session.user.token 
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const router = useRouter();
 
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // TODO: Implement the logic to update the user's username and password
-    console.log('Username:', username);
-    console.log('Password:', password);
-  };
-
+  const editUser = async () => {
+        
+    try {
+      const token = session.user.token;
+      // alert(token)
+      await updateUserProfile(username , password , token);
+      console.log("Edit Profile success");
+      alert('Edit UserProflie Successfully')
+  } catch (error) {
+      console.error("Error Edit Profile:", error);
+      // Handle error
+  }
+  }
   const handleCancel = () => {
     // Navigate to the /user route
     router.push('/user');
@@ -34,25 +45,27 @@ const UserEditPanel: React.FC = () => {
         <div className="flex flex-col items-center space-y-3">
           <div className="p-5 text-5xl">Edit Account</div>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={editUser}>
           <div className="flex flex-col items-center">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">New Username:</label>
             <input
               type="text"
               id="username"
               value={username}
-              onChange={handleUsernameChange}
+              onChange={(event) => {setUsername(event.target.value)}}
               className="border border-gray-300 rounded-md p-2"
+              required
             />
           </div>
           <div className="flex flex-col items-center">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">New Password:</label>
             <input
               type="password"
               id="password"
               value={password}
-              onChange={handlePasswordChange}
+              onChange={(event) => {setPassword(event.target.value)}}
               className="border border-gray-300 rounded-md p-2"
+              required
             />
           </div>
           <div className="flex justify-between">
@@ -66,6 +79,7 @@ const UserEditPanel: React.FC = () => {
             <button
               type="submit"
               className="bg-gray-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-gray-600 hover:text-white"
+      
             >
               Save
             </button>
@@ -75,5 +89,3 @@ const UserEditPanel: React.FC = () => {
     </div>
   );
 };
-
-export default UserEditPanel;

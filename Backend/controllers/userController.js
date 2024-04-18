@@ -1,4 +1,7 @@
 const User = require('../models/User');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // @desc        Update user
 // @route       PUT /auth/update
@@ -7,16 +10,16 @@ exports.update = async (req, res, next) => {
   try {
     const { name, password } = req.body;
     //console.log(name, password);
-
-    let user = await User.findById(req.user.id);
-    if (name) {
-      user.name = name;
-    }
-    if (password) {
-      user.password = password
-    }
-
-    user = await user.save();
+    // Update user
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    user = await User.findByIdAndUpdate(req.user.id, {
+      name: name,
+      password: hashedPassword,
+    }, {
+      new: true,
+      runValidators: true,
+    });
 
     res.status(200).json({
       success: true,
