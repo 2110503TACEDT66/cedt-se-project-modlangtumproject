@@ -28,18 +28,13 @@ const LoginPage = () => {
     const { email, password } = formData;
 
     try {
-      const response = await userLogIn(email, password);
-      const res = await signIn("credentials", {
+      const response = await signIn("credentials", {
         email: email,
         password: password,
         redirect: false,
       });
-  
-      if (!res?.error) {
-        //router.push(this.callbackUrl ?? "http://localhost:3000");
-      }
 
-      if (!response.success) {
+      if (!response?.ok) {
         throw new Error('Network response was not ok');
       }
       alert('Login successful');
