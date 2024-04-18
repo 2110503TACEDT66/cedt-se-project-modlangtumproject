@@ -14,7 +14,7 @@ const ResetPage = ({ params }: { params: { resetToken: string } }) => {
   // if (!session || !session.user.token) redirect('/auth/login');
 
   // const profile = await getUserProfile(session.user.token);
-  
+
   const [formData, setFormData] = useState<FormDataState>({
     password: '',
     confirmPassword: '',
@@ -29,8 +29,8 @@ const ResetPage = ({ params }: { params: { resetToken: string } }) => {
     event.preventDefault();
     const { password, confirmPassword } = formData;
     if (password !== confirmPassword) {
-        alert('Password does not match');
-        return;
+      alert('Password does not match');
+      return;
     }
 
     try {
@@ -47,58 +47,52 @@ const ResetPage = ({ params }: { params: { resetToken: string } }) => {
   return (
     <main className="flex flex-col items-center bg-white px-5">
       <div className="mt-16 flex flex-col items-center">
-        <h2 className="text-3xl font-[650] text-red-700">
-          Reset Password
-        </h2>
+        <h2 className="text-3xl font-[650] text-red-700">Reset Password</h2>
       </div>
-      
-        <form
-          className="mt-5 flex w-[50vh] flex-col"
-          onSubmit={handleSubmit}
-        >
-          <div>
-            <label className="block text-m font-medium text-gray-800 mt-2">
-              New Password
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                              text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                              dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Enter your new password"
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label className="block text-m font-medium text-gray-800 mt-2">
-              Confirm New Password
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                              text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                              dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Confirm your new password"
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-          </div>
-          <div className="mt-10 flex items-start">
-            <button
-              type="submit"
-              className="w-full rounded-3xl bg-red-300 px-5 py-2.5 text-center 
-              text-sm font-medium text-white hover:bg-red-700"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
 
+      <form className="mt-5 flex w-[50vh] flex-col" onSubmit={handleSubmit}>
+        <div>
+          <label className="text-m mt-2 block font-medium text-gray-800">
+            New Password
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+                              text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+                              dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Enter your new password"
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label className="text-m mt-2 block font-medium text-gray-800">
+            Confirm New Password
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+                              text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+                              dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Confirm your new password"
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="mt-10 flex items-start">
+          <button
+            type="submit"
+            className="w-full rounded-3xl bg-red-300 px-5 py-2.5 text-center 
+              text-sm font-medium text-white hover:bg-red-700"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
     </main>
   );
 };

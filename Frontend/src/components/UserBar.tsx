@@ -16,9 +16,9 @@ export default async function UserBar() {
       w-72 flex-col items-center bg-white px-3 py-20 shadow-lg"
     >
       <div className="absolute top-56">
-        <UserBarItem route="Account" path="/user"/>
-        <UserBarItem route="Edit Account" path="/user/edit"/>
-        <UserBarItem route="Delete Account" path="/user/security"/>
+        <UserBarItem route="Account" path="/user" />
+        <UserBarItem route="Edit Account" path="/user/edit" />
+        <UserBarItem route="Delete Account" path="/user/security" />
       </div>
       <div className="absolute bottom-10 flex flex-col">
         <Link

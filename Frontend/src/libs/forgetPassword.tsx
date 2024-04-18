@@ -1,19 +1,18 @@
 async function forgetPassword(userEmail: string) {
-    const response = await fetch(
-      'https://modlangtum-api.vercel.app/auth/forget-password',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: userEmail }),
-      }
-    );
-    if (!response.ok) {
-      throw new Error('Failed to send mail');
+  const response = await fetch(
+    'https://modlangtum-api.vercel.app/auth/forget-password',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: userEmail }),
     }
-    return await response.json();
+  );
+  if (!response.ok) {
+    throw new Error('Failed to send mail');
   }
-  
-  export default forgetPassword;
-  
+  return await response.json();
+}
+
+export default forgetPassword;

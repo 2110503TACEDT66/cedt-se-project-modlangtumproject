@@ -1,9 +1,8 @@
-
 export default async function deleteCompany({
-  id, 
+  id,
   token,
 }: {
-  id: string
+  id: string;
   token: string;
 }) {
   const response = await fetch(
@@ -11,7 +10,7 @@ export default async function deleteCompany({
     {
       method: 'DELETE',
       headers: {
-        'authorization': `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }
   );

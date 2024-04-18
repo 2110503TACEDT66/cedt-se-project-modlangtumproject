@@ -26,7 +26,7 @@ const LoginPage = () => {
     const { email, password } = formData;
 
     try {
-      const response = await signIn("credentials", {
+      const response = await signIn('credentials', {
         email: email,
         password: password,
         redirect: false,
@@ -46,63 +46,60 @@ const LoginPage = () => {
   return (
     <main className="flex flex-col items-center bg-white px-5">
       <div className="mt-16 flex flex-col items-center">
-        <h2 className="text-3xl font-bold text-gray-800">
-          Login
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-800">Login</h2>
       </div>
-      
-        <form
-          className="mt-10 flex w-[50vh] flex-col"
-          onSubmit={handleSubmit}
-        >
-          <div>
-            <label className="mb-2 block text-m font-medium text-gray-800">
-              Email
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+
+      <form className="mt-10 flex w-[50vh] flex-col" onSubmit={handleSubmit}>
+        <div>
+          <label className="text-m mb-2 block font-medium text-gray-800">
+            Email
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
                                   text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
                                   dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Enter your email address"
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <label className="block text-m font-medium text-gray-800 mt-2">
-              Password
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+              placeholder="Enter your email address"
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label className="text-m mt-2 block font-medium text-gray-800">
+            Password
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
                               text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
                               dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Enter your password"
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-          </div>
-          <div className="flex flex-row-reverse">
-            <Link href="/auth/forget" className="underline font-light text-blue-400 mt-2">
-              Forgot Password?
-            </Link>
-          </div>
-          <div className="mt-10 flex items-start">
-            <button
-              type="submit"
-              className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center 
+              placeholder="Enter your password"
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="flex flex-row-reverse">
+          <Link
+            href="/auth/forget"
+            className="mt-2 font-light text-blue-400 underline"
+          >
+            Forgot Password?
+          </Link>
+        </div>
+        <div className="mt-10 flex items-start">
+          <button
+            type="submit"
+            className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center 
               text-sm font-medium text-white hover:bg-blue1"
-            >
-              Sign in with Credentials
-            </button>
-          </div>
-        </form>
-
+          >
+            Sign in with Credentials
+          </button>
+        </div>
+      </form>
     </main>
   );
 };

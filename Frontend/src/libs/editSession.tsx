@@ -1,14 +1,13 @@
-
 export default async function editSession({
   id,
   company,
   date,
-  token
+  token,
 }: {
-  id: string,
-  company?: string,
-  date?: string,
-  token: string
+  id: string;
+  company?: string;
+  date?: string;
+  token: string;
 }) {
   const response = await fetch(
     `https://modlangtum-api.vercel.app/sessions/${id}`,
