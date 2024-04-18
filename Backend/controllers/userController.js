@@ -10,7 +10,6 @@ exports.update = async (req, res, next) => {
   try {
     const { name, password } = req.body;
     //console.log(name, password);
-<<<<<<< HEAD
     // Update user
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -21,18 +20,6 @@ exports.update = async (req, res, next) => {
       new: true,
       runValidators: true,
     });
-=======
-
-    let user = await User.findById(req.user.id);
-    if (name) {
-      user.name = name;
-    }
-    if (password) {
-      user.password = password
-    }
-
-    user = await user.save();
->>>>>>> 40380df105aa11508428e1d85962ac47e4796eef
 
     res.status(200).json({
       success: true,
