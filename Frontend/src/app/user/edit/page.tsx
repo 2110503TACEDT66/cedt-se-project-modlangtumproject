@@ -15,8 +15,8 @@ export default async function Session() {
 
   return (
     <main>
-        <UserEditPanel/>
-        <UserBar/>
+      <UserEditPanel />
+      <UserBar />
     </main>
   );
 }

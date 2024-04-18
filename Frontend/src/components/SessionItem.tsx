@@ -26,7 +26,7 @@ export default function SessionItem({
   const deleteSession = async (id: string, token: string) => {
     try {
       const response = await fetch(
-        `https://job-fair-frontend-but-backend.vercel.app/sessions/${id}`,
+        `https://modlangtum-api.vercel.app/sessions/${id}`,
         {
           method: 'DELETE',
           headers: {

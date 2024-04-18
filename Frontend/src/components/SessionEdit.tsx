@@ -27,6 +27,21 @@ function SessionEdit({
   token: string;
   session_id: string;
 }) {
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      setSelectedFileName(files[0].name);
+      setSelectedFile(files[0]);
+    }
+  };
+
+  const handleFileDelete = () => {
+    setSelectedFileName(null);
+    setSelectedFile(null);
+  };
   const [dateTime, setDateTime] = useState(dayjs());
   const {
     data: session,
@@ -102,6 +117,31 @@ function SessionEdit({
                     maxDate={dayjs('2022-05-13T23:59')}
                   />
                 </LocalizationProvider>
+              </div>
+            </div>
+            <div className="px-10-py-10 mb-3 flex w-screen space-x-5 text-center">
+              <p className="text-md mt-2 w-fit text-left text-black">
+                Upload Resume
+              </p>
+              <div className="relative">
+                <input
+                  type="file"
+                  id="fileInput"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+                <label
+                  htmlFor="fileInput"
+                  className="cursor-pointer rounded-2xl bg-gray-200 px-10 py-2"
+                >
+                  {selectedFileName ? selectedFileName : 'Upload File'}
+                </label>
+                <label
+                  className="ml-4 justify-center bg-white text-center text-3xl text-red-500"
+                  onClick={handleFileDelete}
+                >
+                  {selectedFileName ? '-' : ''}
+                </label>
               </div>
             </div>
 

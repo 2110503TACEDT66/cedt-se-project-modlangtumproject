@@ -1,4 +1,7 @@
 const User = require('../models/User');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // @desc        Update user
 // @route       PUT /auth/update
@@ -8,9 +11,11 @@ exports.update = async (req, res, next) => {
     const { name, password } = req.body;
     //console.log(name, password);
     // Update user
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
     user = await User.findByIdAndUpdate(req.user.id, {
       name: name,
-      password: password,
+      password: hashedPassword,
     }, {
       new: true,
       runValidators: true,
@@ -28,6 +33,43 @@ exports.update = async (req, res, next) => {
     });
   }
 };
+
+// @desc        Delete user
+// @route       DELETE /auth/delete/:id
+// @access      Private
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpsOnly: true,
+    });
+
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "No user",
+      });
+    }
+
+    await user.deleteOne();
+
+    res.status(200).json({
+      success: true,
+      data: {},
+    });
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({
+      success: false,
+      message: 'Cannot delete user',
+    });
+  }
+};
+
+
 
 // @desc        Register user
 // @route       POST /auth/register

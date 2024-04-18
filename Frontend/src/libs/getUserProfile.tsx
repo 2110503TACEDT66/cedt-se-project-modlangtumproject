@@ -1,13 +1,10 @@
 async function getUserProfile(token: string) {
-  const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/auth/me',
-    {
-      method: 'GET',
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch('https://modlangtum-api.vercel.app/auth/me', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   if (!response.ok) {
     throw new Error('Failed to get user profile');
   }

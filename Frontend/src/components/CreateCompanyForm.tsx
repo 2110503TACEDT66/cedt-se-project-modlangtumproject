@@ -218,8 +218,8 @@ export default function CreateCompanyForm() {
           <div className="mb-6 flex items-start">
             <button
               className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center 
-              text-sm font-medium text-white hover:bg-blue1" 
-              type='submit'
+              text-sm font-medium text-white hover:bg-blue1"
+              type="submit"
             >
               Submit
             </button>
@@ -228,4 +228,4 @@ export default function CreateCompanyForm() {
       </div>
     </div>
   );
-};
+}

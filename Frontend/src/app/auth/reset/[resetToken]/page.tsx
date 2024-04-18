@@ -1,19 +1,23 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import React from 'react';
 import { FormEvent } from 'react';
-import { signIn } from 'next-auth/react';
+import resetPassword from '@/libs/resetPassword';
 
 type FormDataState = {
-  email: string;
   password: string;
+  confirmPassword: string;
 };
 
-const LoginPage = () => {
+const ResetPage = ({ params }: { params: { resetToken: string } }) => {
+  // const session = await getServerSession(authOptions);
+  // if (!session || !session.user.token) redirect('/auth/login');
+
+  // const profile = await getUserProfile(session.user.token);
+
   const [formData, setFormData] = useState<FormDataState>({
-    email: '',
     password: '',
+    confirmPassword: '',
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,52 +27,33 @@ const LoginPage = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { email, password } = formData;
+    const { password, confirmPassword } = formData;
+    if (password !== confirmPassword) {
+      alert('Password does not match');
+      return;
+    }
 
     try {
-      const response = await signIn('credentials', {
-        email: email,
-        password: password,
-        redirect: false,
-      });
+      const response = await resetPassword(password, params.resetToken);
 
-      if (!response?.ok) {
-        throw new Error('Network response was not ok');
-      }
-      alert('Login successful');
+      alert('Reset password successful');
       window.location.href = '/';
     } catch (error) {
       console.error('An unexpected error happened:', error);
-      alert('Login failed');
+      alert('Failed to reset password');
     }
   };
 
   return (
     <main className="flex flex-col items-center bg-white px-5">
       <div className="mt-16 flex flex-col items-center">
-        <h2 className="text-3xl font-bold text-gray-800">Login</h2>
+        <h2 className="text-3xl font-[650] text-red-700">Reset Password</h2>
       </div>
 
-      <form className="mt-10 flex w-[50vh] flex-col" onSubmit={handleSubmit}>
-        <div>
-          <label className="text-m mb-2 block font-medium text-gray-800">
-            Email
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
-                                  text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
-                                  dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="Enter your email address"
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
+      <form className="mt-5 flex w-[50vh] flex-col" onSubmit={handleSubmit}>
         <div>
           <label className="text-m mt-2 block font-medium text-gray-800">
-            Password
+            New Password
             <input
               type="password"
               id="password"
@@ -76,27 +61,35 @@ const LoginPage = () => {
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
                               text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
                               dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="Enter your password"
+              placeholder="Enter your new password"
               onChange={handleInputChange}
               required
             />
           </label>
         </div>
-        <div className="flex flex-row-reverse">
-          <Link
-            href="/auth/forget"
-            className="mt-2 font-light text-blue-400 underline"
-          >
-            Forgot Password?
-          </Link>
+        <div>
+          <label className="text-m mt-2 block font-medium text-gray-800">
+            Confirm New Password
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+                              text-sm text-gray-700 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white 
+                              dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Confirm your new password"
+              onChange={handleInputChange}
+              required
+            />
+          </label>
         </div>
         <div className="mt-10 flex items-start">
           <button
             type="submit"
-            className="w-full rounded-3xl bg-blue-200 px-5 py-2.5 text-center 
-              text-sm font-medium text-white hover:bg-blue1"
+            className="w-full rounded-3xl bg-red-300 px-5 py-2.5 text-center 
+              text-sm font-medium text-white hover:bg-red-700"
           >
-            Sign in with Credentials
+            Reset
           </button>
         </div>
       </form>
@@ -104,4 +97,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ResetPage;
