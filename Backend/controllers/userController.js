@@ -30,24 +30,22 @@ exports.update = async (req, res, next) => {
 };
 
 // @desc        Delete user
-// @route       DELETE /auth/delete
+// @route       DELETE /auth/delete/:id
 // @access      Private
 exports.deleteUser = async (req, res, next) => {
   try {
-    // ตรวจสอบว่ามีการตั้งค่า req.user หรือไม่
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({
-        success: false,
-        message: 'ไม่ได้รับอนุญาตให้ดำเนินการนี้',
-      });
-    }
+    const user = await User.findById(req.params.id);
 
-    const user = await User.findById(req.user.id);
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpsOnly: true,
+    });
+
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: 'ไม่พบผู้ใช้',
+        message: "No user",
       });
     }
 
@@ -58,10 +56,10 @@ exports.deleteUser = async (req, res, next) => {
       data: {},
     });
   } catch (error) {
-    console.error(error.stack);
+    console.log(error.stack);
     return res.status(500).json({
       success: false,
-      message: 'ไม่สามารถลบผู้ใช้ได้',
+      message: 'Cannot delete user',
     });
   }
 };
