@@ -21,8 +21,5 @@ export default async function updateUserProfile(
     if (!response.ok) {
       throw new Error('Update User proflie failed');
     }
-  if (!response.ok) {
-    throw new Error('Update User proflie failed');
-  }
   return response.json();
 }
