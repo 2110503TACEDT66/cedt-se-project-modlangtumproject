@@ -13,7 +13,7 @@ exports.update = async (req, res, next) => {
     // Update user
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    user = await User.findByIdAndUpdate(req.user.id, {
+    const user = await User.findByIdAndUpdate(req.user.id, {
       name: name,
       password: hashedPassword,
     }, {
