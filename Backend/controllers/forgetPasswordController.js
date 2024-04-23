@@ -26,7 +26,6 @@ const User = require('../models/User');
 exports.forgetPassword = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-
     if (!user) {
       return res
         .status(404)
@@ -43,6 +42,8 @@ exports.forgetPassword = async (req, res) => {
         pass: process.env.EMAIL_PASSWORD,
       },
     });
+    // console.log('Email: ', process.env.EMAIL);
+    // console.log('Email Password: ', process.env.EMAIL_PASSWORD);
 
     const mailOptions = {
       from: process.env.EMAIL,
@@ -51,7 +52,7 @@ exports.forgetPassword = async (req, res) => {
       html: `
         <h1>Reset your password</h1>
         <h2>Please click on following link for reset your password</h2>
-        <a href="${process.env.URL}/auth/reset/${token}">Reset Password</a>
+        <a href="http://localhost:3000/auth/reset/${token}">Reset Password</a>
       `,
     };
 
@@ -141,18 +142,18 @@ exports.forgetPassword = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   try {
     const decodedToken = jwt.verify(req.params.resetToken, process.env.JWT_SECRET);
-
     if (!decodedToken) {
       return res.status(400).json({ success: false, message: 'Invalid token' });
     }
 
-    const user = await User.findById(decodedToken.userId);
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
-    
-    user.password = req.body.password;
-    await user.save();
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    user = await User.findByIdAndUpdate(decodedToken.userId, {
+      password: hashedPassword,
+    }, {
+      new: true,
+      runValidators: true,
+    });
 
     res.status(200).json({ success: true, data: 'Password reset successfully' });
   } catch (error) {
