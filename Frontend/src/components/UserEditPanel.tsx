@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import updateUserProfile from '@/libs/updateUserProfile';
 
-export default function UserEditPanel() {
+export default function UserEditPanel({ userProfile }: { userProfile: any} ) {
   const { data: session } = useSession();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -18,6 +18,7 @@ export default function UserEditPanel() {
       await updateUserProfile(username, password, token);
       console.log('Edit Profile success');
       alert('Edit UserProflie Successfully');
+      window.location.href = '/user';
     } catch (error) {
       console.error('Error Edit Profile:', error);
     }
@@ -39,7 +40,8 @@ export default function UserEditPanel() {
             <input
               type="text"
               id="username"
-              value={username}
+              defaultValue={userProfile.data.name || ''}
+              // value={username}
               onChange={(event) => {
                 setUsername(event.target.value);
               }}
@@ -52,7 +54,8 @@ export default function UserEditPanel() {
             <input
               type="password"
               id="password"
-              value={password}
+              // value={password}
+              defaultValue="123456"
               onChange={(event) => {
                 setPassword(event.target.value);
               }}

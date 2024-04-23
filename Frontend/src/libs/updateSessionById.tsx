@@ -8,7 +8,7 @@ export default async function updateSessionById({
   date: string;
 }) {
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/sessions/${session_id}`,
+    `http://localhost:5000/sessions/${session_id}`,
     {
       method: 'PUT',
       headers: {

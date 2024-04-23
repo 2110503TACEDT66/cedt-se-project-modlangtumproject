@@ -7,7 +7,7 @@ export default async function createBooking({
   date: string;
   token: string;
 }) {
-  const response = await fetch('https://modlangtum-api.vercel.app/sessions', {
+  const response = await fetch('http://localhost:5000/sessions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

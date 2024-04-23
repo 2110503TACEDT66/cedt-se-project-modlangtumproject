@@ -58,14 +58,14 @@ const handleFileUpload = (files: FileList | null) => {
   const { data: companyDetail, error: companyError } = useSWR(
     session?.user.token
       ? [
-          `https://modlangtum-api.vercel.app/company/${params.cid}`,
+          `http://localhost:5000/company/${params.cid}`,
           session.user.token,
         ]
       : null,
     fetcher
   );
   // const { data: userProfile, error: profileError } = useSWR(
-  //   session?.user.token ? ['https://modlangtum-api.vercel.app/auth/me', session.user.token] : null, fetcher
+  //   session?.user.token ? ['http://localhost:5000/auth/me', session.user.token] : null, fetcher
   // );
 
   if (companyError) return <div>Failed to load data</div>;

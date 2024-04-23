@@ -2,7 +2,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import UserBar from '@/components/UserBar';
 import { redirect } from 'next/navigation';
-import getSession from '@/libs/getSession';
+import getUserProfile from '@/libs/getUserProfile';
 import UserEditPanel from '@/components/UserEditPanel';
 
 export default async function Session() {
@@ -10,12 +10,11 @@ export default async function Session() {
   if (!session || !session.user.token) {
     redirect('/api/auth/login');
   }
-  // get booking sessions
-  const sessions = getSession(session.user.token);
+  const profile = await getUserProfile(session.user.token);
 
   return (
     <main>
-      <UserEditPanel />
+      <UserEditPanel userProfile={profile} />
       <UserBar />
     </main>
   );
