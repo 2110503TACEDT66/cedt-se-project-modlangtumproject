@@ -1,9 +1,8 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import createJob from '@/libs/createJob';
-import getAllCompany from '@/libs/getAllCompany';
 
 type FormDataState = {
   job_name: string;
@@ -13,15 +12,9 @@ type FormDataState = {
   hashtag: Array<string>;
 };
 
-type Company = {
-  id: string;
-  name: string;
-};
-
-export default function CreateJob() {
+export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const [companies, setCompanies] = useState<Company[]>([]);
+  const { data: session} = useSession();
   const [formData, setFormData] = useState<FormDataState>({
     job_name: '',
     job_description: '',
@@ -30,24 +23,25 @@ export default function CreateJob() {
     hashtag: new Array<string>(),
   });
 
-  useEffect(() => {
-    if (session?.user?.token) {
-      getAllCompany(session.user.token).then(setCompanies);
-    }
-  }, [session?.user?.token]);
+ 
 
   if (!session) {
     return <p>Please login to see the Company</p>;
   }
 
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    if(event.target.name === 'hashtag') {
+      const hashtag = event.target.value.split('#');
+      setFormData({ ...formData, [event.target.name]: hashtag });
+      return;
+    }
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { job_name, job_description, salary, company_name, hashtag } = formData;
 
     try {
       const response = await createJob({
@@ -68,7 +62,7 @@ export default function CreateJob() {
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
       <div className="mb-5 border-b-2 p-5 text-5xl">Create Job</div>
-      <div className="flex h-full flex-col items-center bg-white px-3">
+      <div className="flex h-full flex-col items-center bg-white px-3 w-full">
         <form className="mt-5" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label
@@ -81,7 +75,7 @@ export default function CreateJob() {
                 required
                 id="job_name"
                 name="job_name"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 
+                className="block w-[30vw] rounded-lg border border-gray-300 bg-gray-50 p-2.5 
                                 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Job name"
                 onChange={handleInputChange}
@@ -139,7 +133,7 @@ export default function CreateJob() {
                 value={formData.company_name}
               >
                 <option value="">Select a company</option>
-                {companies.map((company) => (
+                {allCompany.data.map((company) => (
                   <option key={company.id} value={company.name}>
                     {company.name}
                   </option>

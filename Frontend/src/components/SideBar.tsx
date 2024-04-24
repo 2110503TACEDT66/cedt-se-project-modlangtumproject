@@ -22,6 +22,7 @@ export default async function SideBar() {
             <SideBarItem route="Create Company" path="/company/create" />
             <SideBarItem route="Create Job" path="/job/create" />
           </div>
+          
         ) : null}
       </div>
     </div>
