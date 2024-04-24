@@ -27,7 +27,15 @@ function SessionEdit({
   token: string;
   session_id: string;
 }) {
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  const {
+    data: session,
+    isLoading,
+    error,
+  } = useSWR(
+    token && session_id ? [`sessionKey`, token, session_id] : null,
+    fetcher
+  );
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(session?.resume || null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,14 +51,7 @@ function SessionEdit({
     setSelectedFile(null);
   };
   const [dateTime, setDateTime] = useState(dayjs());
-  const {
-    data: session,
-    isLoading,
-    error,
-  } = useSWR(
-    token && session_id ? [`sessionKey`, token, session_id] : null,
-    fetcher
-  );
+  
   if (error) {
     return <div className="ml-72">Failed to load session data.</div>;
   }
@@ -60,6 +61,7 @@ function SessionEdit({
 
   const sessionDate = session && session.date ? dayjs(session.date) : dateTime;
 
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
@@ -67,6 +69,7 @@ function SessionEdit({
         token: token,
         session_id: session_id,
         date: dateTime.toISOString(),
+        resume: selectedFile ? selectedFile : null,
       });
       if (!response.success) {
         throw new Error('Failed to update session');

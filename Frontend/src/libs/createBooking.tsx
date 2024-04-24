@@ -2,10 +2,12 @@ export default async function createBooking({
   company,
   date,
   token,
+  resume,
 }: {
   company: string;
   date: string;
   token: string;
+  resume: File | null;
 }) {
   const response = await fetch('https://modlangtum-api.vercel.app/sessions', {
     method: 'POST',
@@ -16,6 +18,7 @@ export default async function createBooking({
     body: JSON.stringify({
       company: company,
       date: date,
+      resume: resume,
     }),
   });
 

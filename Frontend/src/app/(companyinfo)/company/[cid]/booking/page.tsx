@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 type FormDataSession = {
   company: string;
   date: string;
+  resume: File | null;
 };
 
 const fetcher = async ([url, token]: [string, string]): Promise<any> => {
@@ -32,6 +33,7 @@ export default function Booking({ params }: { params: { cid: string } }) {
   const [formData, setFormData] = useState<FormDataSession>({
     company: '',
     date: '',
+    resume: null,
   });
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -76,13 +78,15 @@ const handleFileUpload = (files: FileList | null) => {
     event.preventDefault();
     formData.company = companyDetail.data._id;
     formData.date = dateTime.toJSON();
-    const { company, date } = formData;
+    formData.resume = selectedFile ? selectedFile: null;
+    const { company, date , resume } = formData;
 
     try {
       const response = await createBooking({
         company,
         date,
         token: session.user.token,
+        resume: resume,
       });
       if (!response.success) {
         throw new Error('Failed to create booking');

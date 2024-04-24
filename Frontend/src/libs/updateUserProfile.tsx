@@ -5,7 +5,7 @@ export default async function updateUserProfile(
 ) {
   const response = await fetch(
     //`https://job-fair-frontend-but-backend.vercel.app/auth/update`,
-    'http://localhost:5000/auth/update',
+    'http://modlangtum-api.vercel.app/auth/update',
     {
       method: 'PUT',
       headers: {
