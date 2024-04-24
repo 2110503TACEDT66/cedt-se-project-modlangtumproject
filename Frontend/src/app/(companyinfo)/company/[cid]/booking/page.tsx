@@ -34,7 +34,7 @@ export default function Booking({ params }: { params: { cid: string } }) {
     date: '',
   });
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState< File | null >(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
 const handleFileUpload = (files: FileList | null) => {
   if (files && files.length > 0) {
@@ -81,7 +81,6 @@ const handleFileUpload = (files: FileList | null) => {
       alert('Please fill in all required fields');
       return;
     }
-    console.log(formData , selectedFile);
 
     try {
       const response = await createBooking({

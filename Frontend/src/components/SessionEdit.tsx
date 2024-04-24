@@ -9,6 +9,7 @@ import useSWR from 'swr';
 import updateSessionById from '@/libs/updateSessionById';
 import Image from 'next/image';
 
+
 const fetcher = async ([key, token, session_id]: [string, string, string]) => {
   try {
     const res = await getSessionById(token, session_id);
@@ -20,6 +21,7 @@ const fetcher = async ([key, token, session_id]: [string, string, string]) => {
     throw error;
   }
 };
+
 function SessionEdit({
   token,
   session_id,
@@ -35,8 +37,9 @@ function SessionEdit({
     token && session_id ? [`sessionKey`, token, session_id] : null,
     fetcher
   );
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(session?.resume || null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
+  const [selectedFileName, setSelectedFileName] = useState<string>(session?.resume ? 'Resume Uploaded' : 'Upload File');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -47,7 +50,7 @@ function SessionEdit({
   };
 
   const handleFileDelete = () => {
-    setSelectedFileName(null);
+    setSelectedFileName('Upload File');
     setSelectedFile(null);
   };
   const [dateTime, setDateTime] = useState(dayjs());
@@ -64,12 +67,16 @@ function SessionEdit({
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (!dateTime || !selectedFile) {
+      alert('Please fill in all required fields');
+      return;
+    }
     try {
       const response = await updateSessionById({
         token: token,
         session_id: session_id,
         date: dateTime.toISOString(),
-        resume: selectedFile ? selectedFile : null,
+        resume: selectedFile,
       });
       if (!response.success) {
         throw new Error('Failed to update session');
@@ -137,13 +144,13 @@ function SessionEdit({
                   htmlFor="fileInput"
                   className="cursor-pointer rounded-2xl bg-gray-200 px-10 py-2"
                 >
-                  {selectedFileName ? selectedFileName : 'Upload File'}
+                  {selectedFileName}
                 </label>
                 <label
                   className="ml-4 justify-center bg-white text-center text-3xl text-red-500"
                   onClick={handleFileDelete}
                 >
-                  {selectedFileName ? '-' : ''}
+                  {selectedFile ? '-' : ''}
                 </label>
               </div>
             </div>
@@ -159,5 +166,8 @@ function SessionEdit({
       </div>
     </div>
   );
+
+  
+
 }
 export default SessionEdit;

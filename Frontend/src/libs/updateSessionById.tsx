@@ -7,20 +7,20 @@ export default async function updateSessionById({
   token: string;
   session_id: string;
   date: string;
-  resume: File | null;
+  resume: File;
 }) {
+  const formData = new FormData();
+  formData.append('date', date);
+  formData.append('resume', resume);
+  
   const response = await fetch(
     `https://modlangtum-api.vercel.app/sessions/${session_id}`,
     {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        date: date,
-        resume: resume,
-      }),
+      body: formData,
     }
   );
   console.log(response);
