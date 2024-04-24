@@ -5,7 +5,11 @@ export default async function updateUserProfile(
 ) {
   const response = await fetch(
     //`https://job-fair-frontend-but-backend.vercel.app/auth/update`,
+<<<<<<< Updated upstream
     'http://modlangtum-api.vercel.app/auth/update',
+=======
+    'https://modlangtum-api.vercel.app/auth/update',
+>>>>>>> Stashed changes
     {
       method: 'PUT',
       headers: {
