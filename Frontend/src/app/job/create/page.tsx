@@ -13,8 +13,6 @@ export default async function CreateCompany() {
 
   const profile = await getUserProfile(session.user.token);
   const allCompany = await getAllCompany(session.user.token);
-  const allCompanyJson = await allCompany;
-
   return (
     <main>
       <SideBar />
