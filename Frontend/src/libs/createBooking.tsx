@@ -7,12 +7,12 @@ export default async function createBooking({
   company: string;
   date: string;
   token: string;
-  resume: File | null;
+  resume: File;
 }) {
   const response = await fetch('https://modlangtum-api.vercel.app/sessions', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/jsoื',
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
