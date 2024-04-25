@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -22,6 +22,8 @@ const fetcher = async ([key, token, session_id]: [string, string, string]) => {
   }
 };
 
+
+
 function SessionEdit({
   token,
   session_id,
@@ -37,9 +39,14 @@ function SessionEdit({
     token && session_id ? [`sessionKey`, token, session_id] : null,
     fetcher
   );
-  
-  const [selectedFileName, setSelectedFileName] = useState<string>(session?.resume ? 'Resume Uploaded' : 'Upload File');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+
+  const resumeFile = new File([session?.resume], 'resume.pdf');
+  console.log(resumeFile);
+
+
+
+  const [selectedFileName, setSelectedFileName] = useState<string>(resumeFile ? 'resume.pdf' : 'Upload File');
+  const [selectedFile, setSelectedFile] = useState<File | null>(resumeFile);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
