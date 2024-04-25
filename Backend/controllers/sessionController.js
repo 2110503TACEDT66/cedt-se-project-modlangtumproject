@@ -102,7 +102,6 @@ exports.addSession = async (req, res, next) => {
       message: 'Date must be between May 10th - 13th, 2022',
     });
   }
-  
 
   let check = null
   if (req.file) {
