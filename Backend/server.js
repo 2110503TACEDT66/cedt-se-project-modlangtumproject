@@ -25,7 +25,7 @@ app.use(helmet());
 app.use(xss());
 app.use(hpp());
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: ['http://localhost:3000', 'http://modlang_frontend:3000']
 }));
 
 const limiter = rateLimit({
