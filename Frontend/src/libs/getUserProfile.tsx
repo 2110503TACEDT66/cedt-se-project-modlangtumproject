@@ -1,5 +1,5 @@
 async function getUserProfile(token: string) {
-  const response = await fetch('http://localhost:5000/auth/me', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
     method: 'GET',
     headers: {
       authorization: `Bearer ${token}`,

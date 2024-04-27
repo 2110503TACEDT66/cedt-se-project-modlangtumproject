@@ -6,7 +6,7 @@ export default async function deleteCompany({
   token: string;
 }) {
   const response = await fetch(
-    `http://localhost:5000/company/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/company/${id}`,
     {
       method: 'DELETE',
       headers: {

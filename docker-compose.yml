@@ -4,11 +4,11 @@ services:
     build: ./Backend
     image: modlang_backend
     ports:
-      - 5000:5000
+      - "5000:5000"
     volumes:
       - ./Backend:/app
     environment:
-      - FRONT_URL=http://localhost:3000
+      - FRONT_URL=http://modlang_frontend:3000
       - EMAIL=moosatae.dev@gmail.com
       - EMAIL_PASSWORD=vcqv kjgm jiwb syqt
   modlang_frontend:
@@ -19,10 +19,10 @@ services:
     depends_on:
       - modlang_backend
     ports:
-      - 3000:3000
+      - "3000:3000"
     volumes:
       - ./Frontend:/app
     environment:
       - NEXTAUTH_SECRET=1day-project
       - NEXTAUTH_URL=http://localhost:3000
-      - NEXT_PUBLIC_API_URL=http://localhost:5000
+      - NEXT_PUBLIC_API_URL=http://modlang_backend:5000

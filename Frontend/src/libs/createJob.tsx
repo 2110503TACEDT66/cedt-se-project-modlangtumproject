@@ -11,7 +11,7 @@ export default async function createJob({
     company_name: string;
     hashtag: Array<string>;
     }) {
-    const response = await fetch('http://localhost:5000/job', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/job`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json',

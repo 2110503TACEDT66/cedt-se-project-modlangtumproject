@@ -14,8 +14,7 @@ export default async function updateSessionById({
   formData.append('resume', resume);
   
   const response = await fetch(
-    //`https://modlangtum-api.vercel.app/sessions/${session_id}`
-    `http://localhost:5000/sessions/${session_id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/sessions/${session_id}`
     ,
     {
       method: 'PUT',

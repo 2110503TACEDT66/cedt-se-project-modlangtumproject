@@ -4,9 +4,7 @@ export default async function updateUserProfile(
   token: string
 ) {
   const response = await fetch(
-    //`https://job-fair-frontend-but-backend.vercel.app/auth/update`,
-
-    'http://localhost:5000/auth/update',
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/update`,
     {
       method: 'PUT',
       headers: {
