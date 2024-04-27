@@ -6,7 +6,7 @@ export default async function deleteAccount({
     token: string
   }) {
     const response = await fetch(
-      `https://modlangtum-api.vercel.app/auth/delete/${id}`,
+      `http://localhost:5000/auth/delete/${id}`,
       {
         method: 'DELETE',
         headers: {

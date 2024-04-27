@@ -18,7 +18,7 @@ export default async function editCompany({
   token: string;
 }) {
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/company/${id}`,
+    `http://localhost:5000/company/${id}`,
     {
       method: 'PUT',
       headers: {

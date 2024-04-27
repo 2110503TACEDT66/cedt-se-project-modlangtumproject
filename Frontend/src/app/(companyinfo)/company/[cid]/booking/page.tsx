@@ -76,13 +76,18 @@ const handleFileUpload = (files: FileList | null) => {
     event.preventDefault();
     formData.company = companyDetail.data._id;
     formData.date = dateTime.toJSON();
-    const { company, date } = formData;
+    const { company, date} = formData;
+    if (!company || !date || !selectedFile) {
+      alert('Please fill in all required fields');
+      return;
+    }
 
     try {
       const response = await createBooking({
         company,
         date,
         token: session.user.token,
+        resume: selectedFile,
       });
       if (!response.success) {
         throw new Error('Failed to create booking');

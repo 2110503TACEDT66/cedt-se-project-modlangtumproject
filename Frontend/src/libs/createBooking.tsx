@@ -2,26 +2,31 @@ export default async function createBooking({
   company,
   date,
   token,
+  resume,
 }: {
   company: string;
   date: string;
   token: string;
+  resume: File;
 }) {
-  const response = await fetch('https://modlangtum-api.vercel.app/sessions', {
+  const formData = new FormData();
+  formData.append('company', company);
+  formData.append('date', date);
+  formData.append('resume', resume);
+
+  const response = await fetch('http://localhost:5000/sessions', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
-      company: company,
-      date: date,
-    }),
+    body: formData,
   });
 
   if (!response.ok) {
     throw new Error('Create company failed');
   }
+
+  console.log(response);
 
   return response.json();
 }

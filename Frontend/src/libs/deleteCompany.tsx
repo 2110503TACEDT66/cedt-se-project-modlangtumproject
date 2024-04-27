@@ -6,7 +6,7 @@ export default async function deleteCompany({
   token: string;
 }) {
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/company/${id}`,
+    `http://localhost:5000/company/${id}`,
     {
       method: 'DELETE',
       headers: {
