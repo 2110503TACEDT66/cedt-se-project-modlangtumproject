@@ -1,0 +1,21 @@
+version: '1.0'
+services:
+  backend:
+    build: ./Backend
+    image: backend_jobfair
+    ports:
+      - 5000:5000
+    environment:
+      - FRONT_URL="http://localhost:3000"
+      - EMAIL="moosatae.dev@gmail.com"
+      - EMAIL_PASSWORD="cjzl tsoq toag hgov"
+  frontend:
+    build: ./frontend
+    image: frontend_jobfair
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    environment:
+      - NEXTAUTH_SECRET="1day-project"
+      - API_URL="http://localhost:5000"
