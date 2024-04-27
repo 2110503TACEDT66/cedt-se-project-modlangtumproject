@@ -14,7 +14,9 @@ export default async function updateSessionById({
   formData.append('resume', resume);
   
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/sessions/${session_id}`,
+    //`https://modlangtum-api.vercel.app/sessions/${session_id}`
+    `http://localhost:5000/sessions/${session_id}`
+    ,
     {
       method: 'PUT',
       headers: {
@@ -23,10 +25,9 @@ export default async function updateSessionById({
       body: formData,
     }
   );
-  console.log(response);
 
   if (!response.ok) {
-    throw new Error('Create company failed');
+    throw new Error('Update session failed');
   }
 
   return response.json();

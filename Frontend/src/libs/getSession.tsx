@@ -1,7 +1,7 @@
 export default async function getSession(token: string) {
   const response = await fetch(
-    'https://modlangtum-api.vercel.app/sessions'
-    //'http://localhost:5000/sessions'
+    //'https://modlangtum-api.vercel.app/sessions'
+    'http://localhost:5000/sessions'
     , {
     method: 'GET',
     headers: {

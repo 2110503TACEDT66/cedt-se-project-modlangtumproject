@@ -14,7 +14,7 @@ export default async function createBooking({
   formData.append('date', date);
   formData.append('resume', resume);
 
-  const response = await fetch('https://modlangtum-api.vercel.app/sessions', {
+  const response = await fetch('http://localhost:5000/sessions', {
     method: 'POST',
     headers: {
       authorization: `Bearer ${token}`,

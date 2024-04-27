@@ -11,7 +11,7 @@ export default async function createJob({
     company_name: string;
     hashtag: Array<string>;
     }) {
-    const response = await fetch('https://modlangtum-api.vercel.app/job', {
+    const response = await fetch('http://localhost:5000/job', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json',
