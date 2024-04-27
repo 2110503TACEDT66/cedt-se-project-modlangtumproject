@@ -1,6 +1,6 @@
 async function resetPassword(newPassword: string, resetToken: string) {
   const response = await fetch(
-    `http://localhost:5000/auth/reset-password/${resetToken}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password/${resetToken}`,
     {
       method: 'POST',
       headers: {

@@ -1,6 +1,6 @@
 async function forgetPassword(userEmail: string) {
   const response = await fetch(
-    'http://localhost:5000/auth/forget-password',
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`,
     {
       method: 'POST',
       headers: {

@@ -14,7 +14,7 @@ export default async function createBooking({
   formData.append('date', date);
   formData.append('resume', resume);
 
-  const response = await fetch('http://localhost:5000/sessions', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sessions`, {
     method: 'POST',
     headers: {
       authorization: `Bearer ${token}`,
