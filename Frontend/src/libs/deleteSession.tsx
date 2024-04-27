@@ -1,17 +1,16 @@
-
 export default async function deleteSession({
-  id, 
+  id,
   token,
 }: {
-  id: string
+  id: string;
   token: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/sessions/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/sessions/${id}`,
     {
       method: 'DELETE',
       headers: {
-        'authorization': `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }
   );

@@ -1,17 +1,16 @@
-
 export default async function deleteCompany({
-  id, 
+  id,
   token,
 }: {
-  id: string
+  id: string;
   token: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/company/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/company/${id}`,
     {
       method: 'DELETE',
       headers: {
-        'authorization': `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }
   );

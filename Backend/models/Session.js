@@ -20,6 +20,9 @@ const SessionSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  resume: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model('Session', SessionSchema);

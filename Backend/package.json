@@ -9,8 +9,7 @@
     "dev": "nodemon server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "precommit": "npm run lint && npm run format",
-    "prepare": "husky"
+    "precommit": "npm run lint && npm run format"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.0",
     "multer": "^1.4.5-lts.1",
+    "next": "^14.2.2",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "swagger-jsdoc": "^6.2.8",
@@ -35,7 +35,6 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "husky": "^9.0.11",
     "prettier": "^3.2.5"
   }
 }

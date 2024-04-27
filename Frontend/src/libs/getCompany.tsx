@@ -1,6 +1,6 @@
 export default async function getCompany(token: string, id: string) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/company/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/company/${id}`,
     {
       method: 'GET',
       headers: {

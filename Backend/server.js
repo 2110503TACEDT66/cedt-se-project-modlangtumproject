@@ -24,7 +24,9 @@ app.use(mongoSanitize());
 app.use(helmet());
 app.use(xss());
 app.use(hpp());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://modlang_frontend:3000']
+}));
 
 const limiter = rateLimit({
   windowsMs: 10 * 60 * 1000, //10 mins

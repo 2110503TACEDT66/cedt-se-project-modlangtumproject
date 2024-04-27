@@ -1,4 +1,3 @@
-
 export default async function editCompany({
   id,
   name,
@@ -9,7 +8,7 @@ export default async function editCompany({
   picture,
   token,
 }: {
-  id: string
+  id: string;
   name?: string;
   address?: string;
   website?: string;
@@ -19,12 +18,12 @@ export default async function editCompany({
   token: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/company/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/company/${id}`,
     {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         name: name,

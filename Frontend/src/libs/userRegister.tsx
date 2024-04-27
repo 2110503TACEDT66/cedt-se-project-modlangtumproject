@@ -14,7 +14,7 @@ export default async function userRegister({
   profile?: string | null;
 }) {
   const response = await fetch(
-    'https://job-fair-frontend-but-backend.vercel.app/auth/register',
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
     {
       method: 'POST',
       headers: {

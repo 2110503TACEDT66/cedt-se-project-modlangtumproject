@@ -17,22 +17,13 @@ export default async function SideBar() {
     >
       <div className="absolute top-56">
         <SideBarItem route="Session" path="/session" />
-        <SideBarItem route="Edit User" path="/company/user" />
         {profile.data.role == 'admin' ? (
           <div>
-            <SideBarItem route="Company" path="/company/create" />
+            <SideBarItem route="Create Company" path="/company/create" />
+            <SideBarItem route="Create Job" path="/job/create" />
           </div>
+          
         ) : null}
-      </div>
-      <div className="absolute bottom-10 flex flex-col">
-        <SideBarProfile />
-        <Link
-          href="/api/auth/signout"
-          className="mt-2 rounded-3xl border-2 px-10 py-2 text-center
-                        hover:border-blue1 hover:bg-blue1 hover:text-white"
-        >
-          Log out
-        </Link>
       </div>
     </div>
   );

@@ -1,17 +1,16 @@
-
 export default async function editSession({
   id,
   company,
   date,
-  token
+  token,
 }: {
-  id: string,
-  company?: string,
-  date?: string,
-  token: string
+  id: string;
+  company?: string;
+  date?: string;
+  token: string;
 }) {
   const response = await fetch(
-    `https://job-fair-frontend-but-backend.vercel.app/sessions/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/sessions/${id}`,
     {
       method: 'POST',
       headers: {
