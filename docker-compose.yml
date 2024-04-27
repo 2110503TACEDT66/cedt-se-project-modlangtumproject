@@ -1,21 +1,28 @@
-version: '1.0'
+version: '3'
 services:
-  backend:
+  modlang_backend:
     build: ./Backend
-    image: backend_jobfair
+    image: modlang_backend
     ports:
       - 5000:5000
+    volumes:
+      - ./Backend:/app
     environment:
-      - FRONT_URL="http://localhost:3000"
-      - EMAIL="moosatae.dev@gmail.com"
-      - EMAIL_PASSWORD="cjzl tsoq toag hgov"
-  frontend:
-    build: ./frontend
-    image: frontend_jobfair
+      - FRONT_URL=http://localhost:3000
+      - EMAIL=moosatae.dev@gmail.com
+      - EMAIL_PASSWORD=vcqv kjgm jiwb syqt
+  modlang_frontend:
+    build:
+      context: ./Frontend
+      target: dev # dev
+    image: modlang_frontend
     depends_on:
-      - backend
+      - modlang_backend
     ports:
       - 3000:3000
+    volumes:
+      - ./Frontend:/app
     environment:
-      - NEXTAUTH_SECRET="1day-project"
-      - API_URL="http://localhost:5000"
+      - NEXTAUTH_SECRET=1day-project
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
