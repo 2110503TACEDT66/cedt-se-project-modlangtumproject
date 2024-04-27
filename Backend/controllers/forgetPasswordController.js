@@ -48,11 +48,11 @@ exports.forgetPassword = async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL,
       to: req.body.email,
-      subject: 'Reset Password',
+      subject: 'Reset Password on ModLang Project',
       html: `
         <h1>Reset your password</h1>
         <h2>Please click on following link for reset your password</h2>
-        <a href="${process.env.FRONT_URL}:${process.env.PORT}/auth/reset/${token}">Reset Password</a>
+        <a href="${process.env.FRONT_URL}/auth/reset/${token}">Reset Password</a>
       `,
     };
 

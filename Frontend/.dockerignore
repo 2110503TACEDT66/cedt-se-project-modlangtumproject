@@ -1,0 +1,7 @@
+.git/
+node_modules/
+*.log
+.env.local
+.eslint.json
+.prettierrc.json
+README.md
