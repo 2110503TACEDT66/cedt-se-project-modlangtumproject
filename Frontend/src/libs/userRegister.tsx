@@ -14,7 +14,7 @@ export default async function userRegister({
   profile?: string | null;
 }) {
   const response = await fetch(
-    'https://modlangtum-api.vercel.app/auth/register',
+    'http://localhost:5000/auth/register',
     {
       method: 'POST',
       headers: {

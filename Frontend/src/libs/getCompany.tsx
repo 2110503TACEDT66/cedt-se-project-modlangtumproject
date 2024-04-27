@@ -1,6 +1,6 @@
 export default async function getCompany(token: string, id: string) {
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/company/${id}`,
+    `http://localhost:5000/company/${id}`,
     {
       method: 'GET',
       headers: {
