@@ -10,14 +10,19 @@ const JobSchema = new mongoose.Schema(
     },
     desc: {
       type: String,
-      //required: [true, `Please add job's description`],
+      required: [true, `Please add job's description`],
     },
     requirement: {
       type: String,
     },
     salary: {
-      type: Number,
-      //required: [true, `Please add job's salary`],
+      type: String,
+      required: [true, `Please add job's salary`],
+    },
+    company: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Company',
+      required: true,
     },
   },
   {
@@ -38,7 +43,7 @@ JobSchema.pre(
   { document: true, query: false },
   async function (next) {
     console.log(`Sessions being removed from job ${this._id}`);
-    await this.model('Session').deleteMany({ hospital: this._id });
+    await this.model('Session').deleteMany({ job: this._id });
     next();
   },
 );
