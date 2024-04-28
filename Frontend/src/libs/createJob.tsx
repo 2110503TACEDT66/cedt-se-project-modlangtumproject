@@ -2,14 +2,14 @@ export default async function createJob({
   job_name,
   job_description,
   salary,
-  company,
-  requirement,
+  company_name,
+  hashtag,
 }: {
     job_name: string;
     job_description: string;
     salary: string;
-    company: string;
-    requirement: string;
+    company_name: string;
+    hashtag: Array<string>;
     }) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/job`, {
         method: 'POST',
@@ -20,8 +20,8 @@ export default async function createJob({
         name: job_name,
         desc: job_description,
         salary: salary,
-        company: company,
-        requirement: requirement,
+        company: company_name,
+        hashtag: hashtag,
         }),
     });
     
