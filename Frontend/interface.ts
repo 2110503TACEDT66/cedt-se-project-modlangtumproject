@@ -11,6 +11,25 @@ interface CompanyItem {
   id: string;
 }
 
+interface JobItem {
+  _id: string;
+  name: string;
+  description: string;
+  salary:{
+    min: number;
+    max: number;
+  };
+  companyname: string;
+  hashtag: string;
+  id: string
+}
+
+interface JobJson {
+  success: boolean;
+  count: number;
+  pagination: Object;
+  data: JobItem[];
+}
 interface CompanyJson {
   success: boolean;
   count: number;
@@ -29,3 +48,5 @@ interface SessionJson {
   pagination: Object;
   data: SessionItem[];
 }
+
+
