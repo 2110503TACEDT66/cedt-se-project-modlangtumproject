@@ -7,8 +7,8 @@ import getUserProfile from '@/libs/getUserProfile';
 
 const TopMenu = async () => {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user.token) return null;
-  const profile = await getUserProfile(session.user.token);
+  const token = session?.user?.token;
+  const profile = token ? await getUserProfile(token) : null;
   
   return (
     <div className="flex w-full flex-row flex-wrap">
