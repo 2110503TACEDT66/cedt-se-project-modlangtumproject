@@ -10,6 +10,7 @@ const rateLimit = require('express-rate-limit');
 const company = require('./routes/companyRoutes');
 const session = require('./routes/sessionRoutes');
 const user = require('./routes/userRoutes');
+const job = require('./routes/jobRoutes');
 const hpp = require('hpp');
 const cors = require('cors');
 
@@ -39,6 +40,7 @@ app.use('/company', company);
 app.use('/auth', user);
 app.use('/sessions', session);
 app.use('/uploads', express.static('uploads'));
+app.use('/job', job);
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(
