@@ -9,7 +9,7 @@ type FormDataState = {
   job_description: string;
   salary: string;
   company_name: string;
-  hashtag: Array<string>;
+  hashtag: string[];
 };
 
 export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
@@ -20,7 +20,7 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
     job_description: '',
     salary: '',
     company_name: '',
-    hashtag: new Array<string>(),
+    hashtag: [],
   });
 
  

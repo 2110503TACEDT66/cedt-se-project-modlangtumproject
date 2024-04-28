@@ -8,12 +8,14 @@ export default function SessionItem({
   id,
   company,
   user,
+  job,
   date,
   admin,
 }: {
   id: string;
   company: any;
   user: any;
+  job: any;
   date: Date;
   admin: boolean;
 }) {
