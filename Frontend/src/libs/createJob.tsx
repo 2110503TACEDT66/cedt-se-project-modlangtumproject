@@ -9,7 +9,7 @@ export default async function createJob({
     job_description: string;
     salary: string;
     company_name: string;
-    hashtag: Array<string>;
+    hashtag: string[];
     }) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/job`, {
         method: 'POST',
@@ -17,16 +17,16 @@ export default async function createJob({
         'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        job_name: job_name,
-        job_description: job_description,
+        name: job_name,
+        desc: job_description,
         salary: salary,
-        company_name: company_name,
+        company: company_name,
         hashtag: hashtag,
         }),
     });
     
     if (!response.ok) {
-        throw new Error('Create company failed');
+        throw new Error('Create job failed');
     }
     
     return response.json();
