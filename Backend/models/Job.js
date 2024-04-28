@@ -13,7 +13,7 @@ const JobSchema = new mongoose.Schema(
       required: [true, `Please add job's description`],
     },
     hashtag: {
-      type: Array(String),
+      type: [String],
     },
     salary: {
       type: String,
