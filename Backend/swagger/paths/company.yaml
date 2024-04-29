@@ -1,0 +1,39 @@
+paths:
+  /company:
+    get:
+      summary: Get all companies
+      tags:
+        - Companies
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successfully retrieved companies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    example: 10
+                  pagination:
+                    type: object
+                    example: { page: 1, limit: 10 }
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Company"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false

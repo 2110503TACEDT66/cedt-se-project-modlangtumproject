@@ -6,7 +6,7 @@ const {
   deleteJob,
 } = require('../controllers/jobController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const { protect, authorize } = require('../middleware/authMiddleware');
 
