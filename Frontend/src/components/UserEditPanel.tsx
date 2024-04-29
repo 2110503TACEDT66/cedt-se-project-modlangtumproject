@@ -15,14 +15,14 @@ export default function UserEditPanel() {
   const editUser = async () => {
     try {
       const token = session.user.token;
-      await updateUserProfile(username , password , token);
-      console.log("Edit Profile success");
-      alert('Edit UserProflie Successfully')
-  } catch (error) {
-      console.error("Error Edit Profile:", error);
-      // Handle error
-  }
-  }
+      await updateUserProfile(username, password, token);
+      console.log('Edit Profile success');
+      alert('Edit UserProflie Successfully');
+    } catch (error) {
+      console.error('Error Edit Profile:', error);
+    }
+  };
+
   const handleCancel = () => {
     router.push('/user');
   };

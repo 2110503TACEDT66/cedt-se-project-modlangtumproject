@@ -1,7 +1,3 @@
-const cors = require('cors');
-
-// CORS middleware function
-exports.corsMiddleware = cors();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -48,4 +44,3 @@ exports.authorize = (...roles) => {
     next();
   };
 };
-
