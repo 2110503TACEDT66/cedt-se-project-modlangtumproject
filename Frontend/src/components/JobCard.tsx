@@ -28,14 +28,18 @@ export default async function JobCard({
 
   return (
     <InteractiveCard contentName={jobName}>
-      <div className="h-[15%] w-full p-[10px]">{jobName}</div>
-      <div className="mb-2 text-[18px] font-medium">
+      <div>
+            <h2 className=" margin-top: 20px mx-20  text-xl font-bold inline ">{jobName}</h2> 
+      <span className=" rounded-full px-3 py-1 font-semibold ml-2 right-aligned-text">
+          {jobSalary}
+        </span>
+      </div><br></br>
+      <div className="mx-10 mb-2 text-[18px] font-medium margin-top: 20px">
             Job Description
-          </div>
-      <div className="h-[15%] w-full p-[10px]">{jobDesc}</div>
-      <div className="h-[15%] w-full p-[10px]">{jobSalary}</div>
-
-      <Link href={`/company`}>
+          <p className=" mx-10 text-gray-700 mb-4">{jobDesc}
+        </p>
+      </div>
+      {/* <Link href={`/company`}>
             <button
               className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
@@ -54,7 +58,7 @@ export default async function JobCard({
             >
               Delete
             </button>
-          ) : null }
+          ) : null } */}
     </InteractiveCard>
   );
 }

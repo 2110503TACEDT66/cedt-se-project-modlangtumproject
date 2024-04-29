@@ -36,17 +36,20 @@ export default async function JobCatalog({
           }}
         />
       </div>
-      <main className="mx-30 my-10 rounded-3xl border p-10 shadow-inner">
-      <div className="grid  gap-8 p-4 ">
-        {allJobJsonReady.data.map((jobItem: JobItem) => (
+      <main className="mx-30 my-10 rounded-3xl border p-10 shadow-inner ">
+      <div className="grid  gap-8 p-4 rounded-3xl ">
+        
+        <JobCard jobName='name1' jobDesc='desc1' jobSalary='salary1' />
+        <JobCard jobName='name2' jobDesc='desc2' jobSalary='salary2' />
+        <JobCard jobName='name3' jobDesc='desc3' jobSalary='salary3' />
+        {/* {allJobJsonReady.data.map((jobItem: JobItem) => (
           <Link
             key={jobItem._id}
             href={`/job/${jobItem._id}`}
             className="block overflow-hidden rounded-lg bg-white shadow-lg hover:bg-gray-100"
           >
-            <JobCard jobName={jobItem.name} jobDesc={jobItem.desc} jobSalary={jobItem.salary} />
           </Link>
-        ))}
+        ))} */}
       </div>
       </main>
     </>
