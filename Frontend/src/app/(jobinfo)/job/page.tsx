@@ -25,7 +25,7 @@ export default async function Job() {
             </p>
           }
         >
-          <JobCatalog allCompanyJson={allJob} />
+          <JobCatalog allJobJson={allJob} />
         </Suspense>
       </div>
     </main>

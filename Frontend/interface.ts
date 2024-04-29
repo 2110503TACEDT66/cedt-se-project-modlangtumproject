@@ -18,7 +18,6 @@ interface JobItem {
   hashtag: string[];
   salary: string;
   company: Object;
-  id: string;
 }
 interface JobJson {
   success: boolean;
