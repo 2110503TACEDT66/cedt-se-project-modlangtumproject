@@ -1,34 +1,19 @@
 paths:
-  /job:
+  /company/{companyId}/job:
     get:
       summary: Get all jobs
+      description: Retrieves all jobs with optional filtering by company ID
       tags:
         - Jobs
       security:
         - bearerAuth: []
       parameters:
-        - in: query
-          name: select
+        - in: path
+          name: companyId
+          required: true
           schema:
             type: string
-          description: Fields to select (comma-separated)
-        - in: query
-          name: sort
-          schema:
-            type: string
-          description: Sort fields (comma-separated)
-        - in: query
-          name: page
-          schema:
-            type: integer
-            default: 1
-          description: Page number
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            default: 25
-          description: Number of items per page
+            default: "65e326d0aa5866f7784fa917"
       responses:
         '200':
           description: Successful response
@@ -39,31 +24,16 @@ paths:
                 properties:
                   success:
                     type: boolean
+                    description: Indicates if the request was successful
                   count:
                     type: integer
-                  pagination:
-                    type: object
-                    properties:
-                      next:
-                        type: object
-                        properties:
-                          page:
-                            type: integer
-                          limit:
-                            type: integer
-                      prev:
-                        type: object
-                        properties:
-                          page:
-                            type: integer
-                          limit:
-                            type: integer
+                    description: The number of jobs returned
                   data:
                     type: array
                     items:
                       $ref: '#/components/schemas/Job'
-        '400':
-          description: Bad request
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -71,7 +41,12 @@ paths:
                 properties:
                   success:
                     type: boolean
-                    example: false
+                    description: Indicates if the request was successful
+                  message:
+                    type: string
+                    description: Error message
+                    example: Cannot find job
+  /job:
     post:
       summary: Create a new job
       tags:
@@ -83,7 +58,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Job'
+              type: object
+              properties:
+                name:
+                  type: string
+                  required: true
+                  example: "Software Engineer"
+                desc:
+                  type: string
+                  required: true
+                  example: "Develop software applications"
+                company:
+                  type: string
+                  required: true
+                  example: "65e326d0aa5866f7784fa917"
+                salary:
+                  type: string
+                  required: true
+                  example: "100000"
+                hastags:
+                  type: array
+                  items:
+                    type: string
+                  example: ["hello", "world"]
       responses:
         '201':
           description: Job created successfully
