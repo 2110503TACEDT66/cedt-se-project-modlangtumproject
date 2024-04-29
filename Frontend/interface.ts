@@ -14,22 +14,19 @@ interface CompanyItem {
 interface JobItem {
   _id: string;
   name: string;
-  description: string;
-  salary:{
-    min: number;
-    max: number;
-  };
-  companyname: string;
-  hashtag: string;
-  id: string
+  desc: string;
+  hashtag: string[];
+  salary: string;
+  company: Object;
+  id: string;
 }
-
 interface JobJson {
   success: boolean;
   count: number;
   pagination: Object;
   data: JobItem[];
 }
+
 interface CompanyJson {
   success: boolean;
   count: number;
