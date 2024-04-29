@@ -29,8 +29,8 @@ export default async function JobCard({
   return (
     <InteractiveCard contentName={jobName}>
       <div>
-            <h2 className=" margin-top: 20px mx-20  text-xl font-bold inline ">{jobName}</h2> 
-      <span className=" rounded-full px-3 py-1 font-semibold ml-2 right-aligned-text">
+            <h2 className="margin-top: 20px mx-20  text-xl font-bold inline ">{jobName}</h2> 
+      <span className="rounded-full px-3 py-1 font-semibold ml-2 right-aligned-text">
           {jobSalary}
         </span>
       </div><br></br>
@@ -39,8 +39,9 @@ export default async function JobCard({
           <p className=" mx-10 text-gray-700 mb-4">{jobDesc}
         </p>
       </div>
-      {/* <Link href={`/company`}>
-            <button
+      <div>
+      {profile.data.role == 'user' ? (
+          <button
               className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
               id="applyButton"
@@ -48,17 +49,20 @@ export default async function JobCard({
             >
               Apply
             </button>
-          </Link>
-          {profile.data.role == 'admin' ? (
+            ) : null }
+            {profile.data.role == 'admin' ? (
             <button
-              className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
+            className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="deleteButton"
               id="deleteButton"
               value="Delete Button"
             >
               Delete
             </button>
-          ) : null } */}
+          ) : null }
+      </div>
+           
+
     </InteractiveCard>
   );
 }
