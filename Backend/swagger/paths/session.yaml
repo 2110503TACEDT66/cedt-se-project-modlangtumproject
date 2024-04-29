@@ -60,19 +60,23 @@ paths:
                 user:
                   type: string
                   default: "6628a7e613ac84829421a18a"
+                  required: true
                 company:
                   type: string
                   default: "65e326d0aa5866f7784fa917"
+                  required: true
                 job:
                   type: string
                   default: "662fc321f9a5b7a4c09e1018"
+                  required: true
                 date:
                   type: string
                   format: date
                   default: "2022-05-10"
+                  required: true
                 resume:
                   type: string
-                  default: ""
+                  format: binary
               
       responses:
         '201':
