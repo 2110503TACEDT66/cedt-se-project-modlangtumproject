@@ -1,77 +1,59 @@
+const mockingoose = require('mockingoose');
 const User = require('../../models/User');
 const { update, deleteUser } = require('../../controllers/userController');
-const connectDB = require('../config/db');
-const { head } = require('../../server');
 
-const req = {
-  headers: {},
-  body: {},
-  user: {},
-};
+require('dotenv').config({ path: 'tests/config/config.env' });
 
-const res = {
-  status: jest.fn().mockReturnThis(),
-  json: jest.fn(),
-};
+// jest.mock('../../models/User');
+mockingoose(User);
 
 describe('updateUserDetails', () => {
+  const mockUser = {
+    name: 'John Doe',
+    email: 'test123@gmail.com',
+    password: '123456',
+    tel: '9999123499',
+    role: 'user',
+  };
   let user;
   let token;
 
   beforeAll(async () => {
-    await connectDB();
-    user = await User.create({
-      name: 'John Doe',
-      email: 'test123@gmail.com',
-      password: '123456',
-      tel: '9999123499',
-      role: 'user',
-    });
-    token = user.getSignedJwtToken();
+    user = await User.create(mockUser);
+    token = await user.getSignedJwtToken();
   });
   afterAll(async () => {
-    console.log(user);
-    jest.clearAllMocks();
+    // console.log(user);
+    // console.log(token);
+    await User.deleteOne({ _id: user._id });
+  });
+  it('test', () => {
+    expect(1).toBe(1);
   });
 
-  //   it('should update user details', async () => {
-  //     const req = {
-  //       user: {
-  //         id: user.id,
-  //       },
-  //       headers: {
-  //         authorization: `Bearer ${token}`,
-  //       },
-  //       body: {
-  //         name: 'Jane Doe2',
-  //         password: '1234567',
-  //       },
-  //     };
-
-  //     await update(req, res);
-  //     expect(res.status).toHaveBeenCalledWith(200);
-  //     expect(res.json).toHaveBeenCalledWith({
-  //       success: true,
-  //       data: expect.any(Object),
-  //     });
-  //   });
-  it('should update user details successfully', async () => {
-    const userId = new mongoose.Types.ObjectId();
-    req.body = { username: 'newusername', password: 'newpassword' };
-    req.user = { id: userId };
-
-    const updatedUser = {
-      _id: userId,
-      username: 'newusername',
-      password: 'newpassword',
+  it('should update user details', async () => {
+    const req = {
+      user: user,
+      body: {
+        name: 'Jane Doe2',
+        password: '1234567',
+      },
     };
-    jest.spyOn(User, 'findOne').mockResolvedValueOnce(null);
-    jest.spyOn(User, 'findByIdAndUpdate').mockResolvedValueOnce(updatedUser);
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    await update(req, res);
 
-    await updateUserDetails(req, res);
-
-    expect(res.json).toHaveBeenCalledWith({
-      message: 'User details updated successfully',
-    });
+    const updatedUserDetails = await User.findById(user._id);
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({
+        success: true,
+        data: expect.objectContaining({
+          name: 'Jane Doe',
+        }),
+      })
+    );
   });
 });

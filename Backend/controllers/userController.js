@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 exports.update = async (req, res, next) => {
   try {
     const { name, password } = req.body;
-    //console.log(name, password);
+    // console.log(name, password);
     // Update user
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
