@@ -1,6 +1,6 @@
 export default async function getAllJob(token: string) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/company`, 
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/job`, 
   {
     method: 'GET',
     headers: {

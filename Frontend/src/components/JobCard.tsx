@@ -27,19 +27,25 @@ export default async function JobCard({
   // const [value, setValue] = React.useState<number | null>(5);
 
   return (
-    <InteractiveCard contentName={jobName}>
+      <div className= "my-200 mx-40 rounded-3xl border p-10 shadow-inner">
       <div>
-            <h2 className="margin-top: 20px mx-20  text-xl font-bold inline ">{jobName}</h2> 
-      <span className="rounded-full px-3 py-1 font-semibold ml-2 right-aligned-text">
+           <div className="mb-auto mt-auto flex flex-row ">
+           <Image src="/img/job.png" width={30} height={30} alt={'LOGO'}  />
+            <span className="margin-top: 20px mx-4 text-2xl font-bold inline ">{jobName} </span>
+           </div>
+           <div className="flex flex-row items-center justify-end">
+            <Image src="/img/salary.png" width={25} height={25} alt={'LOGO'} /> 
+            <span className=" flex justify-end rounded-full text-xl px-3 py-1 font-semibold ml-1 right-aligned-text">
           {jobSalary}
         </span>
-      </div><br></br>
-      <div className="mx-10 mb-2 text-[18px] font-medium margin-top: 20px">
-            Job Description
+        </div>
+      </div>
+      <div className="mx-20 mb-2 text-[18px] font-medium margin-top: 20px">
+            Job Description <br></br>
           <p className=" mx-10 text-gray-700 mb-4">{jobDesc}
         </p>
       </div>
-      <div>
+      <div className="job-card-actions flex justify-end">
       {profile.data.role == 'user' ? (
           <button
               className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
@@ -51,7 +57,7 @@ export default async function JobCard({
             </button>
             ) : null }
             {profile.data.role == 'admin' ? (
-            <button
+            <button 
             className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="deleteButton"
               id="deleteButton"
@@ -61,8 +67,6 @@ export default async function JobCard({
             </button>
           ) : null }
       </div>
-           
-
-    </InteractiveCard>
+      </div>
   );
 }
