@@ -8,7 +8,7 @@ type FormDataState = {
   job_name: string;
   job_description: string;
   salary: string;
-  company_name: string;
+  company_name: any;
   hashtag: string[];
 };
 
@@ -45,7 +45,12 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
 
     try {
       const response = await createJob({
-        ...formData,
+        job_name: formData.job_name,
+        job_description: formData.job_description,
+        salary: formData.salary,
+        company_name: formData.company_name,
+        hashtag: formData.hashtag,
+        token: session.user.token,
       });
 
       if (!response.success) {
@@ -134,7 +139,7 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
               >
                 <option value="">Select a company</option>
                 {allCompany.data.map((company) => (
-                  <option key={company.id} value={company.name}>
+                  <option key={company.id} value={company._id}>
                     {company.name}
                   </option>
                 ))}
