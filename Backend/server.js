@@ -25,9 +25,11 @@ app.use(mongoSanitize());
 app.use(helmet());
 app.use(xss());
 app.use(hpp());
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://modlang_frontend:3000']
-}));
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://modlang_frontend:3000'],
+  }),
+);
 
 const limiter = rateLimit({
   windowsMs: 10 * 60 * 1000, //10 mins
@@ -70,6 +72,26 @@ const swaggerOptions = {
             password: { type: 'string', required: true },
             role: { type: 'string' },
             profile: { type: 'string' },
+          },
+        },
+        Session: {
+          type: 'object',
+          properties: {
+            user: { type: 'string', required: true },
+            company: { type: 'string', required: true },
+            job: { type: 'string', required: true },
+            date: { type: 'string', required: true },
+            resume: { type: 'string' },
+          },
+        },
+        Job: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', required: true },
+            desc: { type: 'string', required: true },
+            hashtag: { type: 'array' },
+            salary: { type: 'string', required: true },
+            company: { type: 'string', required: true },
           },
         },
       },
