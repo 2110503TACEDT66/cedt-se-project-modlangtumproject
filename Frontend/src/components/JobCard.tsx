@@ -42,7 +42,7 @@ export default async function JobCard({
       <div>
       {profile.data.role == 'user' ? (
           <button
-              className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
+              className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
               id="applyButton"
               value="Apply Button"
