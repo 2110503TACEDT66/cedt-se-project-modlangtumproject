@@ -85,7 +85,7 @@ const handleFileUpload = (files: FileList | null) => {
     try {
       const response = await createBooking({
         company,
-        job:'job',
+        job:'662fcb6975c4e723551f6ec6',
         date,
         token: session.user.token,
         resume: selectedFile,
