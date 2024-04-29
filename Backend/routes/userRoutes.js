@@ -15,9 +15,8 @@ const {
 const router = express.Router();
 
 const { protect, authorize } = require('../middleware/authMiddleware');
-const upload = require('../middleware/upload');
 
-router.post('/register', upload.single('profile'), register);
+router.post('/register', register);
 router.post('/login', login);
 router.get('/me', protect, getMe);
 router.get('/logout', logout);
