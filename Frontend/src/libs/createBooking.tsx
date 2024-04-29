@@ -1,16 +1,19 @@
 export default async function createBooking({
   company,
+  job,
   date,
   token,
   resume,
 }: {
   company: string;
+  job: string;
   date: string;
   token: string;
   resume: File;
 }) {
   const formData = new FormData();
   formData.append('company', company);
+  formData.append('job', job);
   formData.append('date', date);
   formData.append('resume', resume);
 
@@ -23,7 +26,7 @@ export default async function createBooking({
   });
 
   if (!response.ok) {
-    throw new Error('Create company failed');
+    throw new Error('Create session failed');
   }
 
   console.log(response);
