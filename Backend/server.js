@@ -75,7 +75,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ['./controllers/*.js'],
+  apis: ['./swagger/paths/*.yaml'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
