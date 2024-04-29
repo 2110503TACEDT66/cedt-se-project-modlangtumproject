@@ -94,6 +94,17 @@ const swaggerOptions = {
             company: { type: 'string', required: true },
           },
         },
+        Company: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', required: true },
+            address: { type: 'string', required: true },
+            website: { type: 'string', required: true },
+            desc: { type: 'string' },
+            tel: { type: 'string' },
+            picture: { type: 'string' },
+          },
+        }
       },
     },
   },
