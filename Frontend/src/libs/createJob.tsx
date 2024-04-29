@@ -2,14 +2,14 @@ export default async function createJob({
   job_name,
   job_description,
   salary,
-  company_name,
+  company_id,
   hashtag,
   token,
 }: {
     job_name: string;
     job_description: string;
     salary: string;
-    company_name: any;
+    company_id: string;
     hashtag: string[];
     token: string;
     }) {
@@ -23,7 +23,7 @@ export default async function createJob({
         name: job_name,
         desc: job_description,
         salary: salary,
-        company: company_name,
+        company: company_id,
         hashtag: hashtag,
         }),
     });
