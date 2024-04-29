@@ -40,10 +40,6 @@
     "prettier": "^3.2.5"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "controllers/**/*.js",
-      "!controllers/**/!(userController).js"
-    ],
     "coveragePathIgnorePatterns": [
       "models/"
     ]

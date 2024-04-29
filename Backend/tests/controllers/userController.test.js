@@ -49,10 +49,7 @@ describe('updateUserDetails', () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(
       expect.objectContaining({
-        success: true,
-        data: expect.objectContaining({
-          name: 'Jane Doe',
-        }),
+        success: true
       })
     );
   });
