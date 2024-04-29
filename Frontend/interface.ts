@@ -25,17 +25,18 @@ interface JobJson {
   pagination: Object;
   data: JobItem[];
 }
-
 interface CompanyJson {
   success: boolean;
   count: number;
   pagination: Object;
   data: CompanyItem[];
 }
+
 interface SessionItem {
   _id: string;
   user: Object;
   company: Object;
+  job: Object;
   date: Date;
 }
 interface SessionJson {
@@ -46,3 +47,18 @@ interface SessionJson {
 }
 
 
+
+interface JobItem {
+  _id: string;
+  name: string;
+  desc: string;
+  hashtag: string[];
+  salary: string;
+  company: Object;
+}
+interface JobJson {
+  success: boolean;
+  count: number;
+  pagination: Object;
+  data: JobItem[];
+}
