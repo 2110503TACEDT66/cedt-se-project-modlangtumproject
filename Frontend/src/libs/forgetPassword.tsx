@@ -1,6 +1,6 @@
 async function forgetPassword(userEmail: string) {
   const response = await fetch(
-    'https://modlangtum-api.vercel.app/auth/forget-password',
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/forget-password`,
     {
       method: 'POST',
       headers: {

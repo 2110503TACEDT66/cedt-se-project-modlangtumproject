@@ -30,6 +30,7 @@ export default async function SessionPanel({
             id={sessionItem._id}
             company={sessionItem.company}
             user={sessionItem.user}
+            job={sessionItem.job}
             date={sessionItem.date}
             admin={profile.data.role == 'admin' ? true : false}
           />

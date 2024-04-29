@@ -17,7 +17,7 @@ export default async function createCompany({
   picture?: string | null;
   token: string;
 }) {
-  const response = await fetch('https://modlangtum-api.vercel.app/company', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/company`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

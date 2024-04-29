@@ -1,5 +1,5 @@
 async function getUserProfile(token: string) {
-  const response = await fetch('https://modlangtum-api.vercel.app/auth/me', {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
     method: 'GET',
     headers: {
       authorization: `Bearer ${token}`,

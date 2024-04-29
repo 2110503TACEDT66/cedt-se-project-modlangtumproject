@@ -1,6 +1,6 @@
 async function resetPassword(newPassword: string, resetToken: string) {
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/auth/reset-password/${resetToken}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password/${resetToken}`,
     {
       method: 'POST',
       headers: {

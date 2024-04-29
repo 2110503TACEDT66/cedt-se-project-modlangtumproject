@@ -1,28 +1,15 @@
-'use client';
 import TopMenuItem from './TopMenuItem';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import getUserProfile from '@/libs/getUserProfile';
-import { useState, useEffect } from 'react';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth';;
+import getUserProfile from '@/libs/getUserProfile';
 
-const TopMenu = () => {
-  const { data: session, status } = useSession();
-  const [profile, setProfile] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (status === 'authenticated') {
-        const profile = await getUserProfile(session.user.token);
-        setProfile(profile);
-      }
-    };
-
-    fetchProfile();
-  }, [status, session]);
-
+const TopMenu = async () => {
+  const session = await getServerSession(authOptions);
+  const token = session?.user?.token;
+  const profile = token ? await getUserProfile(token) : null;
+  
   return (
     <div className="flex w-full flex-row flex-wrap">
       <div className="fixed left-0 top-0 z-20 mx-[5%] flex h-[100px] w-[90%] flex-row justify-between rounded-md border-b-[1px] border-black bg-white pl-5 pr-5 shadow-xl">
@@ -50,7 +37,7 @@ const TopMenu = () => {
                   sizes="20vh"
                   className="mr-2"
                 />
-                {profile && profile.data ? profile.data.name : 'Loading...'}
+                {profile && profile.data && profile.data.name ? profile.data.name : 'Loading...'}
               </Link>
             </div>
           ) : (

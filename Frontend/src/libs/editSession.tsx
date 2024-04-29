@@ -10,7 +10,7 @@ export default async function editSession({
   token: string;
 }) {
   const response = await fetch(
-    `https://modlangtum-api.vercel.app/sessions/${id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/sessions/${id}`,
     {
       method: 'POST',
       headers: {

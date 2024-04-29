@@ -1,5 +1,7 @@
 export default async function getSession(token: string) {
-  const response = await fetch('https://modlangtum-api.vercel.app/sessions', {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/sessions`
+    , {
     method: 'GET',
     headers: {
       authorization: `Bearer ${token}`,
