@@ -4,6 +4,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+      description: "admin token is\neyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJpZCI6IjY2MjhhN2U2MTNhYzg0ODI5NDIxYTE4YSIsImlhdCI6MTcxNDQwODQ1MSwiZXhwIjoxNzE3MDAwNDUxfQ.VYtEYMzwnQjl_rdQdn8J93f6IM2g8zFZ_Wud2c_3k2M"
 
 security:
   - bearerAuth: []
@@ -17,10 +18,10 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
-            application/json:    
+            application/json:
               schema:
                 type: object
                 properties:
@@ -31,8 +32,8 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Session'
-        '500':
+                      $ref: "#/components/schemas/Session"
+        "500":
           description: Internal server error
           content:
             application/json:
@@ -77,20 +78,20 @@ paths:
                 resume:
                   type: string
                   format: binary
-              
+
       responses:
-        '201':
+        "201":
           description: Session created successfully
           content:
             application/json:
-              schema: 
+              schema:
                 type: object
                 properties:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/Session'
-        '400':
+                    $ref: "#/components/schemas/Session"
+        "400":
           description: Bad request
           content:
             application/json:
@@ -102,7 +103,7 @@ paths:
                   message:
                     type: string
                     example: Date must be between May 10th - 13th, 2022
-        '500':
+        "500":
           description: Internal server error
           content:
             application/json:
@@ -129,7 +130,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Successful response
           content:
             application/json:
@@ -139,8 +140,8 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/Session'
-        '404':
+                    $ref: "#/components/schemas/Session"
+        "404":
           description: Session not found
           content:
             application/json:
@@ -152,7 +153,7 @@ paths:
                   message:
                     type: string
                     example: No session with the id of {sessionId}
-        '500':
+        "500":
           description: Internal server error
           content:
             application/json:
@@ -181,9 +182,9 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/UpdateSessionRequest'
+              $ref: "#/components/schemas/UpdateSessionRequest"
       responses:
-        '200':
+        "200":
           description: Session updated successfully
           content:
             application/json:
@@ -193,8 +194,8 @@ paths:
                   success:
                     type: boolean
                   data:
-                    $ref: '#/components/schemas/Session'
-        '400':
+                    $ref: "#/components/schemas/Session"
+        "400":
           description: Bad request
           content:
             application/json:
@@ -206,7 +207,7 @@ paths:
                   message:
                     type: string
                     example: Date must be between May 10th - 13th, 2022
-        '401':
+        "401":
           description: Unauthorized
           content:
             application/json:
@@ -218,7 +219,7 @@ paths:
                   message:
                     type: string
                     example: User {userId} is not authorized to update this session
-        '404':
+        "404":
           description: Session not found
           content:
             application/json:
@@ -230,7 +231,7 @@ paths:
                   message:
                     type: string
                     example: No session with the id of {sessionId}
-        '500':
+        "500":
           description: Internal server error
           content:
             application/json:
@@ -255,7 +256,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Session deleted successfully
           content:
             application/json:
@@ -266,7 +267,7 @@ paths:
                     type: boolean
                   data:
                     type: object
-        '401':
+        "401":
           description: Unauthorized
           content:
             application/json:
@@ -278,7 +279,7 @@ paths:
                   message:
                     type: string
                     example: User {userId} is not authorized to delete this session
-        '404':
+        "404":
           description: Session not found
           content:
             application/json:
@@ -290,7 +291,7 @@ paths:
                   message:
                     type: string
                     example: No session with the id of {sessionId}
-        '500':
+        "500":
           description: Internal server error
           content:
             application/json:
