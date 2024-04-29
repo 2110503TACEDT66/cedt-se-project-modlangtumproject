@@ -1,6 +1,6 @@
+'client'
 import { getServerSession } from 'next-auth';
 import JobCard from './JobCard';
-import Card from './Card';
 import { Link, TextField } from '@mui/material';
 import getUserProfile from '@/libs/getUserProfile';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -42,16 +42,10 @@ export default async function JobCatalog({
         <JobCard jobName='name2' jobDesc='desc2' jobSalary='salary2'  />
         <JobCard jobName='name3' jobDesc='desc3' jobSalary='salary3'   /> */}
         {allJobJsonReady.data.map((jobItem: JobItem) => (
-          <Link
-            key={jobItem._id}
-            href={`/job/${jobItem._id}`}
-            className="block overflow-hidden rounded-lg bg-white shadow-lg hover:bg-gray-100"
-          >
-          </Link>
+            <JobCard jobName={jobItem.name} jobDesc={jobItem.desc} jobSalary={jobItem.salary} />
         ))}
       </div>
       </main>
     </>
   );
 }
-
