@@ -108,6 +108,7 @@ exports.createJob = async (req, res) => {
     });
   }
   catch (err) {
+    console.log(err.stack);
     return res.status(500).json({
       success: false,
       message: 'Cannot create job',
