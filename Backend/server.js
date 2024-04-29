@@ -10,6 +10,7 @@ const rateLimit = require('express-rate-limit');
 const company = require('./routes/companyRoutes');
 const session = require('./routes/sessionRoutes');
 const user = require('./routes/userRoutes');
+const job = require('./routes/jobRoutes');
 const hpp = require('hpp');
 const cors = require('cors');
 
@@ -24,9 +25,11 @@ app.use(mongoSanitize());
 app.use(helmet());
 app.use(xss());
 app.use(hpp());
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://modlang_frontend:3000']
-}));
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://modlang_frontend:3000'],
+  }),
+);
 
 const limiter = rateLimit({
   windowsMs: 10 * 60 * 1000, //10 mins
@@ -39,6 +42,7 @@ app.use('/company', company);
 app.use('/auth', user);
 app.use('/sessions', session);
 app.use('/uploads', express.static('uploads'));
+app.use('/job', job);
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(
@@ -70,10 +74,41 @@ const swaggerOptions = {
             profile: { type: 'string' },
           },
         },
+        Session: {
+          type: 'object',
+          properties: {
+            user: { type: 'string', required: true },
+            company: { type: 'string', required: true },
+            job: { type: 'string', required: true },
+            date: { type: 'string', required: true },
+            resume: { type: 'string' },
+          },
+        },
+        Job: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', required: true },
+            desc: { type: 'string', required: true },
+            hashtag: { type: 'array' },
+            salary: { type: 'string', required: true },
+            company: { type: 'string', required: true },
+          },
+        },
+        Company: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', required: true },
+            address: { type: 'string', required: true },
+            website: { type: 'string', required: true },
+            desc: { type: 'string' },
+            tel: { type: 'string' },
+            picture: { type: 'string' },
+          },
+        }
       },
     },
   },
-  apis: ['./controllers/*.js'],
+  apis: ['./swagger/paths/*.yaml'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
