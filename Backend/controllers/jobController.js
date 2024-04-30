@@ -1,58 +1,16 @@
 const Job = require('../models/Job');
+const { deleteJob } = require('./utils/deleteJob');
+const { getAllJob } = require('./utils/getAllJob');
 
 // @desc        Delete job
 // @route       DELETE /job/:id
 // @access      Private
-exports.deleteJob = async (req, res) => {
-    try {
-        const job = await Job.findById(req.params.id);
-         
-        if (!job) {
-            return res.status(404).json({
-                success: false,
-                msg: `Job not found with id of ${req.params.id}`,
-              });
-        }
-        await job.deleteOne();
-        res.status(200).json({ success: true, data: job });
-    } catch (err) {
-        res.status(400).json({ success: false });
-    }
-}
+exports.deleteJob = deleteJob;
 
 // @desc        Get all job
 // @route       GET /job
 // @access      Public
-exports.getAllJob = async (req, res) => {
-  let query;
-    if (req.params.companyId) {
-      query = Job.find({ company: req.params.companyId }).populate({
-        path: 'company',
-        select: 'name address website desc tel picture',
-      });
-    } else {
-      query = Job.find().populate({
-        path: 'company',
-        select: 'name address website desc tel picture',
-      });
-    }
-    
-  try {
-    const job = await query;
-
-    res.status(200).json({
-      success: true,
-      count: job.length,
-      data: job,
-    });
-  } catch (error) {
-    console.log(error.stack);
-    return res.status(500).json({
-      success: false,
-      message: 'Cannot find job',
-    });
-  };
-}
+exports.getAllJob = getAllJob;
 
 // @desc        Get single job
 // @route       GET /job/:id
@@ -68,7 +26,10 @@ exports.getJob = async (req, res) => {
     const job = await query;
 
     if (!job) {
-      return res.status(400).json({ success: false, msg: `Job not found with id of ${req.params.id}` });
+      return res.status(400).json({
+        success: false,
+        message: `Job not found with id of ${req.params.id}`,
+      });
     }
     res.status(200).json({ success: true, data: job });
   } catch (err) {
@@ -86,8 +47,7 @@ exports.createJob = async (req, res) => {
       success: true,
       data: job,
     });
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err.stack);
     return res.status(500).json({
       success: false,

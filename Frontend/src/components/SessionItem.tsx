@@ -1,11 +1,12 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter} from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import getUserProfile from '@/libs/getUserProfile';
 import getJob from '@/libs/getJob';
+import { useEffect, useState } from 'react';
 
-export default async function SessionItem({
+export default function SessionItem({
   id,
   company,
   user,
@@ -22,6 +23,7 @@ export default async function SessionItem({
 }) {
   const router = useRouter();
   const { data: session } = useSession();
+
   if (!session || !session.user.token) {
     return <p> Please Login</p>;
   }
@@ -47,10 +49,6 @@ export default async function SessionItem({
       alert('Delete failed');
     }
   };
-  
-  const jobdetail = await getJob(session.user.token , job);
-
-  console.log(company, user , job);
 
   return (
     <div className="flex h-[200px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
@@ -65,12 +63,6 @@ export default async function SessionItem({
         <div className="flex flex-row font-semibold">
           Date : 
           <p className="px-1 font-normal">{new Date(date).toLocaleString()}</p>
-        </div>
-
-        
-        <div className="flex flex-row font-semibold">
-          Job : 
-          <p className="px-1 font-normal">{jobdetail.data.name}</p>
         </div>
       </div>
       
