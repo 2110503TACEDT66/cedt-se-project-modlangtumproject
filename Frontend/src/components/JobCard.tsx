@@ -12,7 +12,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 export default async function JobCard({
   jobName,
   jobDesc,
-  jobSalary
+  jobSalary,
 }: {
   jobName: string;
   jobDesc: string;
@@ -38,6 +38,9 @@ export default async function JobCard({
             <span className=" flex justify-end rounded-full text-xl px-3 py-1 font-semibold ml-1 right-aligned-text">
           {jobSalary}
         </span>
+          <span className=" flex justify-end ml-1 right-aligned-text">
+          /Month
+          </span>
         </div>
       </div>
       <div className="mx-20 mb-2 text-[18px] font-medium margin-top: 20px">
@@ -47,6 +50,7 @@ export default async function JobCard({
       </div>
       <div className="job-card-actions flex justify-end">
       {profile.data.role == 'user' ? (
+        
           <button
               className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
@@ -55,6 +59,7 @@ export default async function JobCard({
             >
               Apply
             </button>
+            
             ) : null }
             {profile.data.role == 'admin' ? (
             <button 

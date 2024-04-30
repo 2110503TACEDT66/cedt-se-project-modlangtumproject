@@ -1,4 +1,4 @@
-'client'
+'use client'
 import { getServerSession } from 'next-auth';
 import JobCard from './JobCard';
 import { Link, TextField } from '@mui/material';
