@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Session = require('./Session');
 
 const JobSchema = new mongoose.Schema(
   {
@@ -43,7 +44,7 @@ JobSchema.pre(
   { document: true, query: false },
   async function (next) {
     console.log(`Sessions being removed from job ${this._id}`);
-    await this.model('Session').deleteMany({ job: this._id });
+    await Session.deleteMany({ job: this._id });
     next();
   },
 );
