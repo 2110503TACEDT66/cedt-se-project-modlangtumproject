@@ -53,7 +53,7 @@ export default async function SessionItem({
   console.log(company, user , job);
 
   return (
-    <div className="flex h-[150px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
+    <div className="flex h-[170px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
       <div className="space-y-1">
         <div className="text-2xl font-bold">{company.name}</div>
         {admin && (
