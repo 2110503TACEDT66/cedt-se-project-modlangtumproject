@@ -31,6 +31,7 @@ export default async function JobCard({
   // const [value, setValue] = React.useState<number | null>(5);
 
   const handleDeleteJob = async () => {
+    console.log('aa');
     try {
       await deleteJob({ job_id: jid, token: session.user.token });
       alert('Job deleted successfully!')
