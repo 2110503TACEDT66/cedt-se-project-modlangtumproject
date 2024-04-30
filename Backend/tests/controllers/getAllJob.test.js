@@ -96,7 +96,7 @@ describe('jobController.deleteJob', () => {
     it('should return a 200 status code', async () => {
       const req = {
         params: {
-          id: '65e326d9aa5866f7784fa91a',
+          companyId: '65e326d9aa5866f7784fa91a',
         },
       };
       const res = {
@@ -110,7 +110,27 @@ describe('jobController.deleteJob', () => {
       expect(res.json).toHaveBeenCalledWith({
         success: true,
         count: 1,
+        data: [
+          expect.objectContaining({
+            _id: '6630cc906944bf36ac24b564',
+            name: 'Full Stack Developer And UX/UI Designer',
+            desc: 'Fulltime job for Full Stack Developer And UX/UI Designer',
+            hashtag: ['FrontEnd', 'BackEnd', 'Designer'],
+            salary: '100,000',
+            company: expect.objectContaining({
+              _id: '65e326d9aa5866f7784fa91a',
+              name: 'Global Tech Solutions',
+              address: '1313 Walnut Street',
+              website: 'http://www.globaltechsolutions.com',
+              desc: "Global solutions for today's technology challenges",
+              tel: '(555) 741-8520',
+              picture:
+                'https://drive.google.com/uc?export=view&id=1p-zDeNtVgyjtxjdcPUd1vAb9500fHVMV',
+            }),
+          })
+        ]
       });
     });
   });
+
 });
