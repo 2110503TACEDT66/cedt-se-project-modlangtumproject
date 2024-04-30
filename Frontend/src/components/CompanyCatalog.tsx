@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import Card from './Card';
 import { Link, TextField } from '@mui/material';
 import getUserProfile from '@/libs/getUserProfile';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 import { redirect } from 'next/navigation';
 
 export default async function CompanyCatalog({

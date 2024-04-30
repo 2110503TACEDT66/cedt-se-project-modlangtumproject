@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import getAllJob from '@/libs/getAllJob';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 
 
 export default async function Job({

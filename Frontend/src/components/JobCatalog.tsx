@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import JobCard from './JobCard';
 import { TextField } from '@mui/material';
 import getUserProfile from '@/libs/getUserProfile';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { Session } from 'next-auth';

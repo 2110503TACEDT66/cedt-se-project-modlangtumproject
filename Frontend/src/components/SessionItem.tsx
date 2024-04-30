@@ -20,6 +20,7 @@ export default function SessionItem({
 }) {
   const router = useRouter();
   const { data: session } = useSession();
+
   if (!session || !session.user.token) {
     return <p> Please Login</p>;
   }
