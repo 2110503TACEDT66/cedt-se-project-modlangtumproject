@@ -1,4 +1,4 @@
-'client'
+'use client'
 import { getServerSession } from 'next-auth';
 import JobCard from './JobCard';
 import { Link, TextField } from '@mui/material';
@@ -8,8 +8,10 @@ import { redirect } from 'next/navigation';
 
 export default async function JobCatalog({
   allJobJson,
+  cid,
 }: {
   allJobJson: Promise<JobJson>;
+  cid : string;
 }) {
   const allJobJsonReady = await allJobJson;
   const session = await getServerSession(authOptions);
@@ -42,7 +44,7 @@ export default async function JobCatalog({
         <JobCard jobName='name2' jobDesc='desc2' jobSalary='salary2'  />
         <JobCard jobName='name3' jobDesc='desc3' jobSalary='salary3'   /> */}
         {allJobJsonReady.data.map((jobItem: JobItem) => (
-            <JobCard jobName={jobItem.name} jobDesc={jobItem.desc} jobSalary={jobItem.salary} />
+            <JobCard jobName={jobItem.name} jobDesc={jobItem.desc} jobSalary={jobItem.salary} jid = {jobItem._id} cid={cid} />
         ))}
       </div>
       </main>

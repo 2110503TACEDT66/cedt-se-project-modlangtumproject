@@ -40,8 +40,8 @@ export default async function CompanyDetailPage({
           <div className="text-md mx-8 mb-3">{companyDetail.data.address}</div>
           <div className="mb-2 text-[18px] font-medium">Telephone</div>
           <div className="text-md mx-8 mb-12">{companyDetail.data.tel}</div>
-          <Link href={`/company/${params.cid}/booking`}>
-            <button
+          <a href={`/company/${params.cid}/job`}>
+            <button 
               className="inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
               name="createSession"
               id="createSession"
