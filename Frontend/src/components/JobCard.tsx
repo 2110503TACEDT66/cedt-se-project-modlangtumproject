@@ -1,4 +1,3 @@
-'use client';
 import { Box, Rating } from '@mui/material';
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
@@ -13,10 +12,14 @@ export default async function JobCard({
   jobName,
   jobDesc,
   jobSalary,
+  jid,
+  cid,
 }: {
   jobName: string;
   jobDesc: string;
   jobSalary: string;
+  jid: string;
+  cid: string;
 }) {
     const session = await getServerSession(authOptions);
     if (!session || !session.user.token) {
@@ -51,6 +54,7 @@ export default async function JobCard({
       <div className="job-card-actions flex justify-end">
       {profile.data.role == 'user' ? (
         
+        <Link href={`/company/${cid}/job/${jid}/booking`}>
           <button
               className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
@@ -59,17 +63,31 @@ export default async function JobCard({
             >
               Apply
             </button>
+          </Link>
             
             ) : null }
             {profile.data.role == 'admin' ? (
-            <button 
-            className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
-              name="deleteButton"
-              id="deleteButton"
-              value="Delete Button"
-            >
-              Delete
-            </button>
+            <div>
+              <Link href={`/company/${cid}/job/${jid}/booking`}>
+                <button
+                  className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800 mr-2"
+                  name="applyButton"
+                  id="applyButton"
+                  value="Apply Button"
+                  >
+                  Apply
+                </button>
+              </Link>
+              <button 
+              className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
+                name="deleteButton"
+                id="deleteButton"
+                value="Delete Button"
+                >
+                Delete
+              </button>
+            </div>
+            
           ) : null }
       </div>
       </div>

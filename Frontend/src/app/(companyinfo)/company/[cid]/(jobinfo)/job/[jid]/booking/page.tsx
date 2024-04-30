@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 type FormDataSession = {
   company: string;
   date: string;
+  job : string;
 };
 
 const fetcher = async ([url, token]: [string, string]): Promise<any> => {
@@ -27,11 +28,12 @@ const fetcher = async ([url, token]: [string, string]): Promise<any> => {
   return response.json();
 };
 
-export default function Booking({ params }: { params: { cid: string } }) {
+export default function Booking({ params }: { params: { cid: string , jid : string } }) {
   const [dateTime, setDateTime] = useState(dayjs('2022-05-10T15:30'));
   const [formData, setFormData] = useState<FormDataSession>({
     company: '',
     date: '',
+    job: '',
   });
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -58,7 +60,7 @@ const handleFileUpload = (files: FileList | null) => {
   const { data: companyDetail, error: companyError } = useSWR(
     session?.user.token
       ? [
-          `https://modlangtum-api.vercel.app/company/${params.cid}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/company/${params.cid}/job/${params.jid}`,
           session.user.token,
         ]
       : null,
@@ -71,11 +73,14 @@ const handleFileUpload = (files: FileList | null) => {
   if (companyError) return <div>Failed to load data</div>;
   if (!companyDetail) return <div>Loading...</div>;
 
+  console.log(companyDetail.data);
+
   // console.log(dateTime.toJSON());
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    formData.company = companyDetail.data._id;
+    formData.company = companyDetail.data.company._id;
     formData.date = dateTime.toJSON();
+    formData.job = companyDetail.data._id;
     const { company, date} = formData;
     if (!company || !date || !selectedFile) {
       alert('Please fill in all required fields');
@@ -85,7 +90,7 @@ const handleFileUpload = (files: FileList | null) => {
     try {
       const response = await createBooking({
         company,
-        job:'662fcb6975c4e723551f6ec6',
+        job: formData.job,
         date,
         token: session.user.token,
         resume: selectedFile,
@@ -106,10 +111,10 @@ const handleFileUpload = (files: FileList | null) => {
 
   return (
     <main className="mx-20 my-28 rounded-3xl border p-14 shadow-inner">
-      <h1 className="text-[30px] font-bold">{companyDetail.data.name}</h1>
+      <h1 className="text-[30px] font-bold">{companyDetail.data.company.name}</h1>
       <div className="my-12 flex flex-row">
         <Image
-          src={companyDetail.data.picture}
+          src={companyDetail.data.company.picture}
           alt="Company Image"
           width={0}
           height={0}
