@@ -100,11 +100,7 @@ describe('jobController.deleteJob', () => {
       const req = {
         params: {
           id: '662fc321f9a5b7a4c09e1018',
-        },
-        user: {
-          id: '6628a7e613ac84829421a18a',
-          role: 'admin',
-        },
+        }
       };
       const res = {
         status: jest.fn().mockReturnThis(),
@@ -121,89 +117,53 @@ describe('jobController.deleteJob', () => {
     });
   });
 
-  // describe('when trying to delete a job without permission', () => {
-  //   it('should return a 401 status code', async () => {
-  //     const req = {
-  //       params: {
-  //         id: '662fcf0775c4e723551f6f90',
-  //       },
-  //       user: {
-  //         id: '662d0b6100ccd592b355897',
-  //         role: 'user',
-  //       },
-  //     };
-  //     const res = {
-  //       status: jest.fn().mockReturnThis(),
-  //       json: jest.fn(),
-  //     };
+   describe('when trying to delete a non-existing job', () => {
+     it('should return a 404 status code', async () => {
+       const req = {
+         params: {
+           id: '67127491ede37740c5857789',
+         },
+       };
+       const res = {
+         status: jest.fn().mockReturnThis(),
+         json: jest.fn(),
+       };
 
-  //     await deleteJob(req, res, jest.fn());
+       // Call the deleteJob function
+       await deleteJob(req, res, jest.fn());
 
-  //     expect(res.status).toHaveBeenCalledWith(401);
-  //     expect(res.json).toHaveBeenCalledWith(
-  //       expect.objectContaining({
-  //         success: false,
-  //         message: `User role ${req.user.role} is not authorized to access this route`,
-  //       }),
-  //     );
-  //   });
-  // });
+       // Assert the expected behavior
+       expect(res.status).toHaveBeenCalledWith(404);
+       expect(res.json).toHaveBeenCalledWith(
+         expect.objectContaining({
+           success: false,
+           message: `Job not found with id of ${req.params.id}`,
+         }),
+       );
+     });
+   });
 
-  // describe('when trying to delete a non-existing job', () => {
-  //   it('should return a 404 status code', async () => {
-  //     const req = {
-  //       params: {
-  //         id: '67127491ede37740c5857789',
-  //       },
-  //       user: {
-  //         id: '6620c987555498a0ba97bc02',
-  //         role: 'admin',
-  //       },
-  //     };
-  //     const res = {
-  //       status: jest.fn().mockReturnThis(),
-  //       json: jest.fn(),
-  //     };
+   describe('when an error occurs during deletion', () => {
+     it('should return a 400 status code', async () => {
+       const req = {
+         params: {
+           id: '6630cc906944bf36ac24b564',
+         },
+       };
+       const res = {
+         status: jest.fn().mockReturnThis(),
+         json: jest.fn(),
+       };
 
-  //     // Call the deleteJob function
-  //     await deleteJob(req, res, jest.fn());
+       const mockError = new Error('Something went wrong');
+       jest.spyOn(Job, 'findById').mockRejectedValue(mockError);
 
-  //     // Assert the expected behavior
-  //     expect(res.status).toHaveBeenCalledWith(404);
-  //     expect(res.json).toHaveBeenCalledWith(
-  //       expect.objectContaining({
-  //         success: false,
-  //         message: `Job not found with id of ${req.params.id}`,
-  //       }),
-  //     );
-  //   });
-  // });
+       await deleteJob(req, res);
 
-  // describe('when an error occurs during deletion', () => {
-  //   it('should return a 400 status code', async () => {
-  //     const req = {
-  //       params: {
-  //         id: '6630cc906944bf36ac24b564',
-  //       },
-  //       user: {
-  //         id: '6620c987555498a0ba97bc02',
-  //         role: 'admin',
-  //       },
-  //     };
-  //     const res = {
-  //       status: jest.fn().mockReturnThis(),
-  //       json: jest.fn(),
-  //     };
-
-  //     const mockError = new Error('Something went wrong');
-  //     jest.spyOn(Job, 'findById').mockRejectedValue(mockError);
-
-  //     await deleteJob(req, res);
-
-  //     expect(res.status).toHaveBeenCalledWith(400);
-  //     expect(res.json).toHaveBeenCalledWith({
-  //       success: false,
-  //     });
-  //   });
-  // });
+       expect(res.status).toHaveBeenCalledWith(400);
+       expect(res.json).toHaveBeenCalledWith({
+         success: false,
+       });
+     });
+   });
 });
