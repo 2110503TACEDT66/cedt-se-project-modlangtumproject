@@ -82,7 +82,7 @@ const handleFileUpload = (files: FileList | null) => {
     formData.date = dateTime.toJSON();
     formData.job = companyDetail.data._id;
     const { company, date} = formData;
-    if (!company || !date || !selectedFile) {
+    if (!company || !date) {
       alert('Please fill in all required fields');
       return;
     }

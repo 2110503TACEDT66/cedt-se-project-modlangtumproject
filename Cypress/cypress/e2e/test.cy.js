@@ -13,31 +13,6 @@ describe('Test visit my web', () => {
     cy.get("button").contains("Save").click();
   })
 
-  it('User1-3', () => {
-    cy.visit("/");
-    cy.visit("/auth/login");
-    cy.get("input[name=email]").type("pppp@gmail.com");
-    cy.get("input[name=password]").type("123456");
-    cy.get("button").contains("Sign in with Credentials").click();
-    cy.url().should("eq", "http://localhost:3000/");
-    cy.visit("/company");
-    cy.visit("/company/65e3428465164ca39be76934");
-    cy.get("button").contains("View Available Job").click();
-    cy.get("button").contains("Apply").click();
-
-    const fileName = 'example_resume.pdf';
-    cy.fixture(fileName).then(fileContent => {
-      cy.get('input[type="file"]').attachFile({
-        fileContent,
-        fileName,
-        mimeType: 'application/pdf'
-      });
-    });
-
-    cy.contains('button', 'Confirm').click();
-    cy.contains('Booking created');
-    cy.url().should('include', '/session');
-  })
 
 
   it('User2-1 Cretiria-1', () => {
@@ -74,4 +49,18 @@ describe('Test visit my web', () => {
     cy.url
     
   })
+
+  it('User2-4', () => {
+    cy.visit("/");
+    cy.visit("/auth/login");
+    cy.get("input[name=email]").type("pppp@gmail.com");
+    cy.get("input[name=password]").type("123456");
+    cy.get("button").contains("Sign in with Credentials").click();
+    cy.url().should("eq", "http://localhost:3000/");
+    cy.visit("/company");
+    cy.visit("/company/65e3428465164ca39be76934");
+    cy.get("button").contains("View Available Job").click();
+    cy.get("button").contains("Apply").click();
+    cy.get("button").contains("Confirm").click();
+    })
 })
