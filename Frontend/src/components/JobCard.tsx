@@ -8,15 +8,19 @@ import getUserProfile from '@/libs/getUserProfile';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import deleteJob from '@/libs/deleteJob';
+import Job from '@/app/(jobinfo)/job/page';
 
 export default async function JobCard({
   jobName,
   jobDesc,
-  jobSalary
+  jobSalary,
+  jobId
 }: {
   jobName: string;
   jobDesc: string;
   jobSalary: string;
+  jobId: string
 }) {
     const session = await getServerSession(authOptions);
     if (!session || !session.user.token) {
@@ -26,12 +30,26 @@ export default async function JobCard({
     const profile = await getUserProfile(session.user.token);
   // const [value, setValue] = React.useState<number | null>(5);
 
+  const handleDeleteJob = async () => {
+    try {
+      await deleteJob({ job_id: jobId, token: session.user.token });
+      alert('Job deleted successfully!')
+
+        window.location.reload();
+      
+    } catch (error) { 
+      console.error('Error deleting job:', error);
+      alert('Failed to delete job');
+      
+    }
+  };
+
   return (
       <div className= "my-200 mx-40 rounded-3xl border p-10 shadow-inner">
       <div>
            <div className="mb-auto mt-auto flex flex-row ">
            <Image src="/img/job.png" width={30} height={30} alt={'LOGO'}  />
-            <span className="margin-top: 20px mx-4 text-2xl font-bold inline ">{jobName} </span>
+            <span className="margin-top: 20px mx-4 text-2xl font-bold inline ">{jobName} </span>  
            </div>
            <div className="flex flex-row items-center justify-end">
             <Image src="/img/salary.png" width={25} height={25} alt={'LOGO'} /> 
@@ -62,6 +80,7 @@ export default async function JobCard({
               name="deleteButton"
               id="deleteButton"
               value="Delete Button"
+              onClick={handleDeleteJob}
             >
               Delete
             </button>

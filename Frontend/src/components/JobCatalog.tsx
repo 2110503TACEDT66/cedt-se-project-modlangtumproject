@@ -42,7 +42,7 @@ export default async function JobCatalog({
         <JobCard jobName='name2' jobDesc='desc2' jobSalary='salary2'  />
         <JobCard jobName='name3' jobDesc='desc3' jobSalary='salary3'   /> */}
         {allJobJsonReady.data.map((jobItem: JobItem) => (
-            <JobCard jobName={jobItem.name} jobDesc={jobItem.desc} jobSalary={jobItem.salary} />
+            <JobCard jobName={jobItem.name} jobDesc={jobItem.desc} jobSalary={jobItem.salary} jobId={jobItem._id}/>
         ))}
       </div>
       </main>
