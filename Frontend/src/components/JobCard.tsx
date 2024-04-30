@@ -1,16 +1,14 @@
-
-import { Box, Rating } from '@mui/material';
+'use client'
 import Image from 'next/image';
-import InteractiveCard from './InteractiveCard';
 import React from 'react';
 import Link from 'next/link';
 import getUserProfile from '@/libs/getUserProfile';
-import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import deleteJob from '@/libs/deleteJob';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
-export default async function JobCard({
+export default function JobCard({
   jobName,
   jobDesc,
   jobSalary,
@@ -23,31 +21,53 @@ export default async function JobCard({
   jid: string;
   cid: string;
 }) {
-    const session = await getServerSession(authOptions);
+    const [profile, setProfile] = useState<any | null>(null);
+
+    const { data: session } = useSession();
     if (!session || !session.user.token) {
       alert('Please Login');
       redirect('/auth/login');
     }
-    const profile = await getUserProfile(session.user.token);
-  // const [value, setValue] = React.useState<number | null>(5);
+
+    useEffect(() => {
+      const fetchUserProfile = async () => {
+        try {
+          if (!session || !session.user.token) {
+            redirect('/auth/login');
+            return;
+          }
+          const profileData = await getUserProfile(session.user.token);
+          setProfile(profileData);
+        } catch (error) {
+          console.error('Error fetching profile:', error);
   
+        }
+      };
+  
+      fetchUserProfile();
+    }, [session]);
 
-    const handleDeleteJob = async () => {
-      console.log('handleDeleteJob function called');
+    if (!profile) {
+      return null;
+    }
+
     
-      try {
-        await deleteJob({ job_id: jid, token: session.user.token });
-        alert('Job deleted successfully!');
+  // const [value, setValue] = React.useState<number | null>(5);
 
-        window.location.reload
-        
-      } catch (error) {
-        console.error('Error deleting job:', error);
-        alert('Failed to delete job');
-      } 
-    };
+  const handleDeleteJob = async () => {
+    console.log('aa');
+    try {
+      await deleteJob({ job_id: jid, token: session.user.token });
+      alert('Job deleted successfully!')
 
-
+        window.location.reload();
+      
+    } catch (error) { 
+      console.error('Error deleting job:', error);
+      alert('Failed to delete job');
+      
+    }
+  };
 
   return (
       <div className= "my-200 mx-40 rounded-3xl border p-10 shadow-inner">
