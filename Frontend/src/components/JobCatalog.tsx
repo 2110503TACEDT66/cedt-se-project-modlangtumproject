@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import JobCard from './JobCard';
-import { Link, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import getUserProfile from '@/libs/getUserProfile';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';

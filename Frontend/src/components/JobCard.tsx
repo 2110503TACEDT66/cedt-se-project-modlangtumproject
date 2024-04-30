@@ -1,13 +1,9 @@
 'use client'
-import { Box, Rating } from '@mui/material';
 import Image from 'next/image';
-import InteractiveCard from './InteractiveCard';
-import React, { use } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import getUserProfile from '@/libs/getUserProfile';
-import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import deleteJob from '@/libs/deleteJob';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
