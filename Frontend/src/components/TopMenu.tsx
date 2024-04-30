@@ -20,7 +20,6 @@ const TopMenu = async () => {
         <div className="jusitfy-center flex">
           <TopMenuItem title="Home" pageRef="/" />
           <TopMenuItem title="Company" pageRef="/company" />
-          <TopMenuItem title="Job" pageRef="/job" />
           <TopMenuItem title="Session" pageRef="/session" />
         </div>
         <div className="text-bold mb-auto mt-auto flex flex-row space-x-5 text-white">
