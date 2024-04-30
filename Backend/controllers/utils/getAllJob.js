@@ -1,8 +1,13 @@
 const Job = require('../../models/Job');
+const Company = require('../../models/Company');
 
 exports.getAllJob = async (req, res) => {
   let query;
   if (req.params.companyId) {
+    const company = await Company.findById(req.params.companyId);
+    if (!company) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
     query = Job.find({ company: req.params.companyId }).populate({
       path: 'company',
       select: 'name address website desc tel picture',
@@ -24,9 +29,8 @@ exports.getAllJob = async (req, res) => {
     });
   } catch (error) {
     console.log(error.stack);
-    return res.status(500).json({
+    return res.status(400).json({
       success: false,
-      message: 'Cannot find job',
     });
   }
 };
