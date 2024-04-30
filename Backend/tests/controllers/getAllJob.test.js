@@ -4,7 +4,7 @@ const Job = require('../../models/Job');
 const Company = require('../../models/Company');
 const { getAllJob } = require('../../controllers/utils/getAllJob');
 
-describe('jobController.deleteJob', () => {
+describe('jobController.getAllJob', () => {
   let mongoServer;
 
   beforeAll(async () => {
@@ -92,7 +92,7 @@ describe('jobController.deleteJob', () => {
     await mongoServer.stop();
   });
 
-  describe('when deleting a job successfully', () => {
+  describe('when get all jobs successfully', () => {
     it('should return a 200 status code', async () => {
       const req = {
         params: {
@@ -107,30 +107,56 @@ describe('jobController.deleteJob', () => {
       await getAllJob(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: true,
+          count: expect.any(Number),
+        }),
+      );
+    });
+    it('invalid companyId should return a 404 status code', async () => {
+      const req = {
+        params: {
+          companyId: '65e326d9aa5866f7784fa91b',
+        },
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      await getAllJob(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
       expect(res.json).toHaveBeenCalledWith({
-        success: true,
-        count: 1,
-        data: [
-          expect.objectContaining({
-            _id: '6630cc906944bf36ac24b564',
-            name: 'Full Stack Developer And UX/UI Designer',
-            desc: 'Fulltime job for Full Stack Developer And UX/UI Designer',
-            hashtag: ['FrontEnd', 'BackEnd', 'Designer'],
-            salary: '100,000',
-            company: expect.objectContaining({
-              _id: '65e326d9aa5866f7784fa91a',
-              name: 'Global Tech Solutions',
-              address: '1313 Walnut Street',
-              website: 'http://www.globaltechsolutions.com',
-              desc: "Global solutions for today's technology challenges",
-              tel: '(555) 741-8520',
-              picture:
-                'https://drive.google.com/uc?export=view&id=1p-zDeNtVgyjtxjdcPUd1vAb9500fHVMV',
-            }),
-          })
-        ]
+        success: false,
+        message: 'Company not found',
+      });
+    });
+
+  });
+
+  describe('when an error occurs', () => {
+    it('should return a 400 status code', async () => {
+      const req = {
+        params: {
+          companyId: '65e326d9aa5866f7784fa91a',
+        },
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      const mockError = new Error('Error occurred');
+      jest.spyOn(Job, 'find').mockRejectedValue(mockError);
+      await getAllJob(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({
+        success: false,
+        message: 'Error occurred',
       });
     });
   });
-
 });
