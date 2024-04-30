@@ -39,6 +39,7 @@ export default async function CompanyCatalog({
       <div className="grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {allCompanyJsonReady.data.map((companyItem: CompanyItem) => (
           <Link
+           data-testid={companyItem.id}
             key={companyItem.id}
             href={`/company/${companyItem.id}`}
             className="block overflow-hidden rounded-lg bg-white shadow-lg hover:bg-gray-100"
