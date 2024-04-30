@@ -1,11 +1,12 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter} from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import getUserProfile from '@/libs/getUserProfile';
 import getJob from '@/libs/getJob';
+import { useEffect, useState } from 'react';
 
-export default async function SessionItem({
+export default function SessionItem({
   id,
   company,
   user,
@@ -24,6 +25,27 @@ export default async function SessionItem({
   const { data: session } = useSession();
   if (!session || !session.user.token) {
     return <p> Please Login</p>;
+  }
+
+  const [jobDetail, setJobDetail] = useState<any | null>(null);
+
+  useEffect(() => {
+    if (session && session.user.token) {
+      fetchJobDetail(session.user.token, job);
+    }
+  }, [session, job]);
+
+  const fetchJobDetail = async (token: string, jobId: string) => {
+    try {
+      const jobDetailData = await getJob(token, jobId);
+      setJobDetail(jobDetailData.data);
+    } catch (error) {
+      console.error('Error fetching job detail:', error);
+    }
+  };
+
+  if(!jobDetail) {
+    return null;
   }
 
   const deleteSession = async (id: string, token: string) => {
@@ -47,10 +69,8 @@ export default async function SessionItem({
       alert('Delete failed');
     }
   };
-  
-  const jobdetail = await getJob(session.user.token , job);
 
-  console.log(company, user , job);
+  console.log(jobDetail) ;
 
   return (
     <div className="flex h-[200px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
@@ -70,7 +90,7 @@ export default async function SessionItem({
         
         <div className="flex flex-row font-semibold">
           Job : 
-          <p className="px-1 font-normal">{jobdetail.data.name}</p>
+          <p className="px-1 font-normal">{jobDetail.name}</p>
         </div>
       </div>
       
