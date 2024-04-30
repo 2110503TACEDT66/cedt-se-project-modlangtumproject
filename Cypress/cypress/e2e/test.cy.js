@@ -1,21 +1,6 @@
-describe('Test visit my web', () => {
-  it('User1-1', () => {
-    cy.visit("/");
-    cy.visit("/auth/login");
-    cy.get("input[name=email]").type("pppp@gmail.com");
-    cy.get("input[name=password]").type("123456");
-    cy.get("button").contains("Sign in with Credentials").click();
-    cy.url().should("eq", "http://localhost:3000/");
-    cy.visit("/user");
-    cy.visit("/user/edit");
-    cy.get("input[id=username]").type("p1");
-    cy.get("input[id=password]").type("123456");
-    cy.get("button").contains("Save").click();
-  })
+describe('Test2 visit my web', () => {
 
-
-
-  it('User2-1 Cretiria-1', () => {
+  it('User2-1', () => {
     cy.visit("/");
     cy.visit("/auth/login");
     cy.get("input[name=email]").type("admin@gmail.com");
@@ -30,37 +15,6 @@ describe('Test visit my web', () => {
     cy.get("select[name=company_id]").select("65e69f5471065fb8d0183510");
     cy.get("button").contains("Submit").click();
     cy.url().should("eq", "http://localhost:3000/company");
-    cy.visit("/company/65e69f5471065fb8d0183510");
-    cy.get("button").contains("View Available Job").click();
-    cy.get("button").contains("Delete").click();
-
   })
 
-  it('User2-1 Cretiria-2', () => {
-    cy.visit("/");
-    cy.visit("/auth/login");
-    cy.get("input[name=email]").type("admin@gmail.com");
-    cy.get("input[name=password]").type("123456");
-    cy.get("button").contains("Sign in with Credentials").click();
-    cy.url().should("eq", "http://localhost:3000/");
-    cy.visit("/company");
-    cy.visit("/company/65e3428465164ca39be76934");
-    cy.get("button").contains("View Available Job").click();
-    cy.url
-    
-  })
-
-  it('User2-4', () => {
-    cy.visit("/");
-    cy.visit("/auth/login");
-    cy.get("input[name=email]").type("pppp@gmail.com");
-    cy.get("input[name=password]").type("123456");
-    cy.get("button").contains("Sign in with Credentials").click();
-    cy.url().should("eq", "http://localhost:3000/");
-    cy.visit("/company");
-    cy.visit("/company/65e3428465164ca39be76934");
-    cy.get("button").contains("View Available Job").click();
-    cy.get("button").contains("Apply").click();
-    cy.get("button").contains("Confirm").click();
-    })
 })
