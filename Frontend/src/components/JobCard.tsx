@@ -1,3 +1,4 @@
+
 import { Box, Rating } from '@mui/material';
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
@@ -29,21 +30,24 @@ export default async function JobCard({
     }
     const profile = await getUserProfile(session.user.token);
   // const [value, setValue] = React.useState<number | null>(5);
+  
 
-  const handleDeleteJob = async () => {
-    console.log('aa');
-    try {
-      await deleteJob({ job_id: jid, token: session.user.token });
-      alert('Job deleted successfully!')
+    const handleDeleteJob = async () => {
+      console.log('handleDeleteJob function called');
+    
+      try {
+        await deleteJob({ job_id: jid, token: session.user.token });
+        alert('Job deleted successfully!');
 
-        window.location.reload();
-      
-    } catch (error) { 
-      console.error('Error deleting job:', error);
-      alert('Failed to delete job');
-      
-    }
-  };
+        window.location.reload
+        
+      } catch (error) {
+        console.error('Error deleting job:', error);
+        alert('Failed to delete job');
+      } 
+    };
+
+
 
   return (
       <div className= "my-200 mx-40 rounded-3xl border p-10 shadow-inner">
