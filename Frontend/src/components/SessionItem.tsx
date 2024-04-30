@@ -18,10 +18,30 @@ export default function SessionItem({
   date: Date;
   admin: boolean;
 }) {
+  const [jobDetail, setJobDetail] = useState<any>(null);
   const router = useRouter();
   const { data: session } = useSession();
+  useEffect(() => {
+    if (session && session.user.token) {
+      fetchJobDetail(session.user.token, job._id);
+    }
+  }, [session, job]);
+
   if (!session || !session.user.token) {
     return <p> Please Login</p>;
+  }
+
+  const fetchJobDetail = async (token: string, jobId: string) => {
+    try {
+      const jobDetailData = await getJob(token, jobId);
+      setJobDetail(jobDetailData.data);
+    } catch (error) {
+      console.error('Error fetching job detail:', error);
+    }
+  };
+
+  if(!jobDetail) {
+    return null;
   }
 
   const deleteSession = async (id: string, token: string) => {
