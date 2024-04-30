@@ -2,9 +2,6 @@
 import { useRouter} from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import getUserProfile from '@/libs/getUserProfile';
-import getJob from '@/libs/getJob';
-import { useEffect, useState } from 'react';
 
 export default function SessionItem({
   id,
