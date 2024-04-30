@@ -49,7 +49,7 @@ export default async function JobCard({
       <div>
            <div className="mb-auto mt-auto flex flex-row ">
            <Image src="/img/job.png" width={30} height={30} alt={'LOGO'}  />
-            <span className="margin-top: 20px mx-4 text-2xl font-bold inline ">{jobName} </span>  
+            <span className="margin-top: 20px mx-4 text-2xl font-bold inline ">{jobName} </span>
            </div>
            <div className="flex flex-row items-center justify-end">
             <Image src="/img/salary.png" width={25} height={25} alt={'LOGO'} /> 
