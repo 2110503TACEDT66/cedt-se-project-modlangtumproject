@@ -1,4 +1,3 @@
-'use client';
 import { Box, Rating } from '@mui/material';
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
@@ -9,18 +8,19 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import deleteJob from '@/libs/deleteJob';
-import Job from '@/app/(jobinfo)/job/page';
 
 export default async function JobCard({
   jobName,
   jobDesc,
   jobSalary,
-  jobId
+  jid,
+  cid,
 }: {
   jobName: string;
   jobDesc: string;
   jobSalary: string;
-  jobId: string
+  jid: string;
+  cid: string;
 }) {
     const session = await getServerSession(authOptions);
     if (!session || !session.user.token) {
@@ -32,7 +32,7 @@ export default async function JobCard({
 
   const handleDeleteJob = async () => {
     try {
-      await deleteJob({ job_id: jobId, token: session.user.token });
+      await deleteJob({ job_id: jid, token: session.user.token });
       alert('Job deleted successfully!')
 
         window.location.reload();
@@ -56,6 +56,9 @@ export default async function JobCard({
             <span className=" flex justify-end rounded-full text-xl px-3 py-1 font-semibold ml-1 right-aligned-text">
           {jobSalary}
         </span>
+          <span className=" flex justify-end ml-1 right-aligned-text">
+          /Month
+          </span>
         </div>
       </div>
       <div className="mx-20 mb-2 text-[18px] font-medium margin-top: 20px">
@@ -65,6 +68,8 @@ export default async function JobCard({
       </div>
       <div className="job-card-actions flex justify-end">
       {profile.data.role == 'user' ? (
+        
+        <Link href={`/company/${cid}/job/${jid}/booking`}>
           <button
               className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
@@ -73,17 +78,32 @@ export default async function JobCard({
             >
               Apply
             </button>
+          </Link>
+            
             ) : null }
             {profile.data.role == 'admin' ? (
-            <button 
-            className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
-              name="deleteButton"
-              id="deleteButton"
-              value="Delete Button"
-              onClick={handleDeleteJob}
-            >
-              Delete
-            </button>
+            <div>
+              <Link href={`/company/${cid}/job/${jid}/booking`}>
+                <button
+                  className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800 mr-2"
+                  name="applyButton"
+                  id="applyButton"
+                  value="Apply Button"
+                  >
+                  Apply
+                </button>
+              </Link>
+              <button 
+              className="inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
+                name="deleteButton"
+                id="deleteButton"
+                value="Delete Button"
+                onClick={handleDeleteJob}
+                >
+                Delete
+              </button>
+            </div>
+            
           ) : null }
       </div>
       </div>
