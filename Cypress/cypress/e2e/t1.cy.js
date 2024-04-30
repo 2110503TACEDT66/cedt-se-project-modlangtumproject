@@ -29,11 +29,11 @@ describe('Test1 visit my web', () => {
       cy.wait(500);
       cy.visit("/auth/register");
       cy.wait(500);
-      cy.get("input[name=name]").type("p1");
+      cy.get("input[name=name]").type("GemKa3");
       cy.wait(500);
-      cy.get("input[name=email]").type("ppee@gmail.com");
+      cy.get("input[name=email]").type("gemKaa3@gmail.com");
       cy.wait(500);
-      cy.get("input[name=tel]").type("0888888888");
+      cy.get("input[name=tel]").type("0019283749");
       cy.wait(500);
       cy.get("input[name=password]").type("123456");
       cy.wait(500);
@@ -43,16 +43,14 @@ describe('Test1 visit my web', () => {
       cy.wait(500);
       cy.get("button").contains("Submit").click();
       cy.wait(500);
-      cy.wait(1000);
-      cy.wait(500);
-      cy.get("input[name=email]").type("ppee@gmail.com");
+      cy.url().should("eq", "http://localhost:3000/api/auth/signin");
+      cy.get("input[name=email]").type("gemKaa3@gmail.com");
       cy.wait(500);
       cy.get("input[name=password]").type("123456");
       cy.wait(500);
       cy.get("button").contains("Sign in with Credentials").click();
       cy.wait(500);
       cy.url().should("eq", "http://localhost:3000/");
-      cy.wait(500);
       cy.visit("/user");
       cy.wait(500);
       cy.visit("/user/security");
@@ -61,6 +59,23 @@ describe('Test1 visit my web', () => {
       cy.visit("/");
 
     })
+    it('User2-1', () => {
+      cy.visit("/");
+      cy.visit("/auth/login");
+      cy.get("input[name=email]").type("admin@gmail.com");
+      cy.get("input[name=password]").type("123456");
+      cy.get("button").contains("Sign in with Credentials").click();
+      cy.url().should("eq", "http://localhost:3000/");
+      cy.visit("/session");
+      cy.visit("/job/create");
+      cy.get("input[name=job_name]").type("FullStack Developer");
+      cy.get("input[name=job_description]").type("FullStack Developer have to code all day");
+      cy.get("input[name=salary]").type("100,000");  
+      cy.get("select[name=company_id]").select("65e69f5471065fb8d0183510");
+      cy.get("button").contains("Submit").click();
+      cy.url().should("eq", "http://localhost:3000/company");
+    })
+  
 
     it('User2-2', ()=> {
         cy.visit("/");
@@ -77,7 +92,7 @@ describe('Test1 visit my web', () => {
         cy.wait(500);
         cy.visit("/company");
         cy.wait(500);
-        const companyId = '65e326d0aa5866f7784fa917';
+        const companyId = '65e69f5471065fb8d0183510';
         cy.wait(500);
             cy.get(`[data-testid="${companyId}"]`).click();
             cy.wait(500);
