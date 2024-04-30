@@ -1,4 +1,3 @@
-'use client';
 import { Box, Rating } from '@mui/material';
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
@@ -47,6 +46,7 @@ export default async function JobCard({
       </div>
       <div className="job-card-actions flex justify-end">
       {profile.data.role == 'user' ? (
+        <Link href='/company'>
           <button
               className=" inline h-[3em] w-[10vw] rounded-3xl bg-indigo-600  py-2 text-white shadow-sm hover:bg-indigo-800"
               name="applyButton"
@@ -55,6 +55,7 @@ export default async function JobCard({
             >
               Apply
             </button>
+          </Link>
             ) : null }
             {profile.data.role == 'admin' ? (
             <button 
