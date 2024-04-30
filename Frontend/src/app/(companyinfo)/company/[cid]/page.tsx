@@ -43,13 +43,13 @@ export default async function CompanyDetailPage({
           <a href={`/company/${params.cid}/job`}>
             <button 
               className="inline h-[3em] w-[40vw] rounded-3xl bg-indigo-600 px-3 py-2 text-white shadow-sm hover:bg-indigo-800"
-              name="createSession"
-              id="createSession"
-              value="Create Session"
+              name="viewJob"
+              id="viewJob"
+              value="View Job"
             >
-              Create Session
+              View Available Job
             </button>
-          </Link>
+            </a>
         </div>
       </div>
     </main>
