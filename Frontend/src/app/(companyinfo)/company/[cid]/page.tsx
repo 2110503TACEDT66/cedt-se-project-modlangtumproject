@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import getCompany from '@/libs/getCompany';
 import Link from 'next/link';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 import { getServerSession } from 'next-auth';
 
 export default async function CompanyDetailPage({

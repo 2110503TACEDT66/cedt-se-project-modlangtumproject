@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 import { getServerSession } from 'next-auth';
 import getUserProfile from '@/libs/getUserProfile';
 import SessionItem from './SessionItem';

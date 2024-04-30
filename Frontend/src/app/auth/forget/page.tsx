@@ -5,7 +5,7 @@ import React from 'react';
 import { FormEvent } from 'react';
 // import { getServerSession } from 'next-auth';
 // import getUserProfile from '@/libs/getUserProfile';
-// import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+// import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 // import { redirect } from 'next/navigation';
 import forgetPassword from '@/libs/forgetPassword';
 

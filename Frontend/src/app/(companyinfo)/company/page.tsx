@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import getAllCompany from '@/libs/getAllCompany';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth-options';
 
 export default async function Company() {
   const session = await getServerSession(authOptions);
