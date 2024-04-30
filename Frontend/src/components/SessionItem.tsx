@@ -25,7 +25,6 @@ export default function SessionItem({
     return <p> Please Login</p>;
   }
 
-
   const deleteSession = async (id: string, token: string) => {
     try {
       const response = await fetch(
