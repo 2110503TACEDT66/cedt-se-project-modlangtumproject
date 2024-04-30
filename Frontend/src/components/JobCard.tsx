@@ -1,15 +1,18 @@
+'use client'
 import { Box, Rating } from '@mui/material';
 import Image from 'next/image';
 import InteractiveCard from './InteractiveCard';
-import React from 'react';
+import React, { use } from 'react';
 import Link from 'next/link';
 import getUserProfile from '@/libs/getUserProfile';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import deleteJob from '@/libs/deleteJob';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
-export default async function JobCard({
+export default function JobCard({
   jobName,
   jobDesc,
   jobSalary,
@@ -22,12 +25,37 @@ export default async function JobCard({
   jid: string;
   cid: string;
 }) {
-    const session = await getServerSession(authOptions);
+    const [profile, setProfile] = useState<any | null>(null);
+
+    const { data: session } = useSession();
     if (!session || !session.user.token) {
       alert('Please Login');
       redirect('/auth/login');
     }
-    const profile = await getUserProfile(session.user.token);
+
+    useEffect(() => {
+      const fetchUserProfile = async () => {
+        try {
+          if (!session || !session.user.token) {
+            redirect('/auth/login');
+            return;
+          }
+          const profileData = await getUserProfile(session.user.token);
+          setProfile(profileData);
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+  
+        }
+      };
+  
+      fetchUserProfile();
+    }, [session]);
+
+    if (!profile) {
+      return null;
+    }
+
+    
   // const [value, setValue] = React.useState<number | null>(5);
 
   const handleDeleteJob = async () => {
