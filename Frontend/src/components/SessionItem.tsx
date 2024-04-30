@@ -21,30 +21,11 @@ export default function SessionItem({
   date: Date;
   admin: boolean;
 }) {
-  const [jobDetail, setJobDetail] = useState<any>(null);
   const router = useRouter();
   const { data: session } = useSession();
-  useEffect(() => {
-    if (session && session.user.token) {
-      fetchJobDetail(session.user.token, job._id);
-    }
-  }, [session, job]);
 
   if (!session || !session.user.token) {
     return <p> Please Login</p>;
-  }
-
-  const fetchJobDetail = async (token: string, jobId: string) => {
-    try {
-      const jobDetailData = await getJob(token, jobId);
-      setJobDetail(jobDetailData.data);
-    } catch (error) {
-      console.error('Error fetching job detail:', error);
-    }
-  };
-
-  if(!jobDetail) {
-    return null;
   }
 
   const deleteSession = async (id: string, token: string) => {
@@ -69,8 +50,6 @@ export default function SessionItem({
     }
   };
 
-  console.log(jobDetail) ;
-
   return (
     <div className="flex h-[200px] w-full flex-col justify-between rounded-2xl p-5 shadow-lg">
       <div className="space-y-1">
@@ -84,12 +63,6 @@ export default function SessionItem({
         <div className="flex flex-row font-semibold">
           Date : 
           <p className="px-1 font-normal">{new Date(date).toLocaleString()}</p>
-        </div>
-
-        
-        <div className="flex flex-row font-semibold">
-          Job : 
-          <p className="px-1 font-normal">{jobDetail.name}</p>
         </div>
       </div>
       
