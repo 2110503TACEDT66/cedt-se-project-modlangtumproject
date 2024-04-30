@@ -81,9 +81,6 @@ describe('jobController.getAllJob', () => {
       company: '65e326d9aa5866f7784fa91a',
     });
     await mockJob3.save();
-
-    // console.log(await Job.find());
-    // console.log(await Company.find());
   });
 
   afterAll(async () => {
@@ -133,7 +130,26 @@ describe('jobController.getAllJob', () => {
         message: 'Company not found',
       });
     });
+  });
 
+  describe('When no companyId is provided', () => {
+    it('invalid companyId should return a 404 status code', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+
+      await getAllJob(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          success: true,
+          count: expect.any(Number),
+        }),
+      );
+    });
   });
 
   describe('when an error occurs', () => {
@@ -149,7 +165,8 @@ describe('jobController.getAllJob', () => {
       };
 
       const mockError = new Error('Error occurred');
-      jest.spyOn(Job, 'find').mockRejectedValue(mockError);
+      jest.spyOn(Company, 'findById').mockRejectedValue(mockError);
+
       await getAllJob(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
