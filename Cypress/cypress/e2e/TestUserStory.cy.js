@@ -29,11 +29,11 @@ describe('Test1 visit my web', () => {
     cy.wait(500);
     cy.visit("/auth/register");
     cy.wait(500);
-    cy.get("input[name=name]").type("Jirayu");
+    cy.get("input[name=name]").type("Jirayu2");
     cy.wait(500);
-    cy.get("input[name=email]").type("Jirayu@gmail.com");
+    cy.get("input[name=email]").type("Jirayu2@gmail.com");
     cy.wait(500);
-    cy.get("input[name=tel]").type("0019283678");
+    cy.get("input[name=tel]").type("0019283909");
     cy.wait(500);
     cy.get("input[name=password]").type("123456");
     cy.wait(500);
@@ -44,7 +44,7 @@ describe('Test1 visit my web', () => {
     cy.get("button").contains("Submit").click();
     cy.wait(500);
     cy.url().should("eq", "http://localhost:3000/api/auth/signin");
-    cy.get("input[name=email]").type("Jirayu@gmail.com");
+    cy.get("input[name=email]").type("Jirayu2@gmail.com");
     cy.wait(500);
     cy.get("input[name=password]").type("123456");
     cy.wait(500);
