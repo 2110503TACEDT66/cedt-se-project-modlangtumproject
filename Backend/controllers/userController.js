@@ -9,8 +9,23 @@ const jwt = require('jsonwebtoken');
 exports.update = async (req, res, next) => {
   try {
     const { name, password } = req.body;
-    // console.log(name, password);
-    // Update user
+
+    if(len(password) < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password must be at least 6 characters',
+      });
+    }
+
+    const existingUser = await User.findOne({ name: name });
+    if (existingUser && existingUser._id.toString() !== req.user.id) {
+      return res.status(400).json({
+        success: false,
+        message: 'User name already exists',
+      });
+    }
+    
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.findByIdAndUpdate(req.user.id, {
