@@ -1,26 +1,15 @@
 version: '3'
 services:
-  modlang_backend:
-    build: ./Backend
-    image: modlang_backend
-    ports:
-      - "5000:5000"
-    environment:
-      - FRONT_URL=http://modlang_frontend:3000
-      - EMAIL=moosatae.dev@gmail.com
-      - EMAIL_PASSWORD=vcqv kjgm jiwb syqt
   modlang_frontend:
     build:
       context: ./Frontend
       # target: dev # dev
     restart: always
     image: modlang_frontend
-    depends_on:
-      - modlang_backend
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
       - NEXTAUTH_SECRET=1day-project
       - NEXTAUTH_URL=http://localhost:3000
-      - NEXT_PUBLIC_API_URL=http://modlang_backend:5000
+      - NEXT_PUBLIC_API_URL=modlangtum-api.vercel.app
