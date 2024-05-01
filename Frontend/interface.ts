@@ -11,7 +11,6 @@ interface CompanyItem {
   id: string;
 }
 
-
 interface CompanyJson {
   success: boolean;
   count: number;
@@ -33,8 +32,6 @@ interface SessionJson {
   data: SessionItem[];
 }
 
-
-
 interface JobItem {
   _id: string;
   name: string;
@@ -48,4 +45,13 @@ interface JobJson {
   count: number;
   pagination: Object;
   data: JobItem[];
+}
+
+interface ProfileItem {
+  _id: string;
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  profile: string;
 }

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -14,7 +14,7 @@ type FormDataState = {
 
 export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
   const router = useRouter();
-  const { data: session} = useSession();
+  const { data: session } = useSession();
   const [formData, setFormData] = useState<FormDataState>({
     job_name: '',
     job_description: '',
@@ -23,15 +23,14 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
     hashtag: [],
   });
 
- 
-
   if (!session) {
     return <p>Please login to see the Company</p>;
   }
 
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    if(event.target.name === 'hashtag') {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    if (event.target.name === 'hashtag') {
       const hashtag = event.target.value.split('#');
       setFormData({ ...formData, [event.target.name]: hashtag });
       return;
@@ -42,7 +41,6 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     try {
       const response = await createJob({
         job_name: formData.job_name,
@@ -52,10 +50,10 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
         hashtag: formData.hashtag,
         token: session.user.token,
       });
-
       if (!response.success) {
         throw new Error('Network response was not ok');
       }
+      
       alert('Create successful');
       router.push('/company');
     } catch (error) {
@@ -67,7 +65,7 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
   return (
     <div className="z-50 space-y-2 p-20 sm:ml-72">
       <div className="mb-5 border-b-2 p-5 text-5xl">Create Job</div>
-      <div className="flex h-full flex-col items-center bg-white px-3 w-full">
+      <div className="flex h-full w-full flex-col items-center bg-white px-3">
         <form className="mt-5" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label
@@ -127,7 +125,10 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
           </div>
 
           <div className="mb-3">
-            <label className="mb-2 block text-sm font-medium text-gray-900" htmlFor="company_name">
+            <label
+              className="mb-2 block text-sm font-medium text-gray-900"
+              htmlFor="company_name"
+            >
               Company name
               <select
                 required
@@ -138,11 +139,13 @@ export default function CreateJob({ allCompany }: { allCompany: CompanyJson }) {
                 value={formData.company_id}
               >
                 <option value="">Select a company</option>
-                {allCompany.data.map((company) => (
-                  <option key={company.id} value={company._id}>
-                    {company.name}
-                  </option>
-                ))}
+                {allCompany &&
+                  allCompany.data &&
+                  allCompany.data.map((company) => (
+                    <option key={company.id} value={company._id}>
+                      {company.name}
+                    </option>
+                  ))}
               </select>
             </label>
           </div>

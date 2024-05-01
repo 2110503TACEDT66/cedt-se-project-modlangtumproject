@@ -1,0 +1,37 @@
+version: "3"
+services:
+  modlang_backend:
+    build: ./Backend
+    image: modlang_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FRONT_URL=http://modlang_frontend:3000
+      - EMAIL=moosatae.dev@gmail.com
+      - EMAIL_PASSWORD=vcqv kjgm jiwb syqt
+    networks:
+      - app-network
+  modlang_frontend_dev:
+    build:
+      context: ./Frontend
+      target: dev
+    image: modlang_frontend
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    depends_on:
+      - modlang_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXTAUTH_SECRET=1day-project
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXT_PUBLIC_API_URL=http://modlang_backend:5000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
