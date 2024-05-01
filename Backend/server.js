@@ -61,6 +61,11 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'Job Fair API Information',
     },
+    servrers:[
+      {
+        url: process.env.HOST,
+      },
+    ],
     components: {
       schemas: {
         User: {
