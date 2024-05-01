@@ -12,4 +12,4 @@ services:
       - NODE_ENV=production
       - NEXTAUTH_SECRET=1day-project
       - NEXTAUTH_URL=http://localhost:3000
-      - NEXT_PUBLIC_API_URL=modlangtum-api.vercel.app
+      - NEXT_PUBLIC_API_URL=https://modlangtum-api.vercel.app
